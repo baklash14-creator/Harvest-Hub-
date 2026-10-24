@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fresh from local farms | HarvestHub</title>
+  <meta name="description" content="HarvestHub connects Sierra Leone families with local farmers. Order fresh vegetables, fruit, eggs and more for market pick-up or home delivery.">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <style>
+/* =========================================================
+   HarvestHub - main stylesheet
+   Mobile-first: base styles are for phones, media queries
+   add tablet (768px) and desktop (1024px) layouts.
+   ========================================================= */
+
+:root {
+  --green: #2e7d32;
+  --green-dark: #1b5e20;
+  --green-light: #e8f5e9;
+  --black: #111111;
+  --grey: #e6e6e6;
+  --grey-dark: #d0d0d0;
+  --white: #ffffff;
+  --text: #1a1a1a;
+  --muted: #555555;
+  --radius: 8px;
+  --max: 1180px;
+  --font: "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--white);
+}
+
+img, svg { max-width: 100%; display: block; }
+
+h1, h2, h3 { line-height: 1.2; margin: 0 0 0.6em; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.2rem; }
+p { margin: 0 0 1em; }
+a { color: var(--green-dark); }
+
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 1.25rem; }
+.section { padding-top: 3rem; padding-bottom: 3rem; }
+.section-title { text-align: center; margin-bottom: 2rem; }
+
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: var(--black); color: var(--white); padding: 0.6rem 1rem; z-index: 200;
+}
+.skip-link:focus { left: 0; }
+
+:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.85rem 1.6rem;
+  font: inherit; font-weight: 700;
+  text-decoration: none; text-align: center;
+  border: 2px solid var(--black);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-dark { background: var(--black); color: var(--white); }
+.btn-dark:hover { background: var(--green-dark); border-color: var(--green-dark); }
+.btn-light { background: var(--white); color: var(--black); }
+.btn-light:hover { background: var(--green-light); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+/* ---------- Header / navigation ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.7rem 1.25rem; max-width: var(--max); margin: 0 auto;
+}
+.logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--black); }
+.logo img { width: 44px; height: 44px; }
+.logo-text strong { display: block; font-size: 1.15rem; line-height: 1.1; }
+.logo-text span { font-size: 0.72rem; color: var(--muted); }
+
+.menu-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; padding: 0;
+  background: var(--white); border: 2px solid var(--black); border-radius: var(--radius);
+  cursor: pointer;
+}
+.menu-toggle span, .menu-toggle span::before, .menu-toggle span::after {
+  display: block; width: 22px; height: 2px; background: var(--black); position: relative;
+  transition: transform 0.2s, background 0.2s;
+}
+.menu-toggle span::before, .menu-toggle span::after { content: ""; position: absolute; left: 0; }
+.menu-toggle span::before { top: -7px; }
+.menu-toggle span::after { top: 7px; }
+.menu-toggle[aria-expanded="true"] span { background: transparent; }
+.menu-toggle[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span::after { top: 0; transform: rotate(-45deg); }
+
+.main-nav { display: none; width: 100%; }
+.main-nav.open { display: block; }
+.main-nav ul { list-style: none; margin: 0; padding: 0; }
+.main-nav a {
+  display: block; padding: 0.9rem 0; font-weight: 600;
+  text-decoration: none; color: var(--black);
+  border-top: 1px solid var(--grey-dark);
+}
+.main-nav a:hover { color: var(--green); }
+.main-nav a[aria-current="page"] { color: var(--green); text-decoration: underline; text-underline-offset: 6px; }
+.header-inner { flex-wrap: wrap; }
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--grey);
+  border-bottom: 2px solid var(--black);
+}
+.hero-inner {
+  display: grid; gap: 2rem; padding: 3rem 1.25rem;
+  max-width: var(--max); margin: 0 auto; align-items: center;
+}
+.hero h1 { font-size: 2.2rem; max-width: 14ch; }
+.hero p { font-size: 1.1rem; max-width: 40ch; }
+.hero-art { display: none; }
+
+/* ---------- Info strip ---------- */
+.info-strip { display: grid; gap: 1rem; padding: 1.5rem 0; }
+.info-card {
+  display: flex; align-items: center; gap: 1rem;
+  background: var(--grey); border: 2px solid var(--black); border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+.info-card svg { width: 40px; height: 40px; flex: none; }
+.info-card strong { display: block; }
+.info-card span { font-size: 0.92rem; color: var(--muted); }
+
+/* ---------- Category / product cards ---------- */
+.category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.category-card {
+  display: block; text-align: center; text-decoration: none; color: var(--black);
+  border: 2px solid var(--black); border-radius: var(--radius); overflow: hidden;
+  background: var(--white); transition: transform 0.2s, box-shadow 0.2s;
+}
+.category-card:hover { transform: translateY(-4px); box-shadow: 0 8px 18px rgba(0,0,0,0.15); }
+.category-card img { width: 100%; height: 120px; object-fit: contain; background: var(--green-light); padding: 1rem; }
+.category-card span { display: block; padding: 0.7rem; font-weight: 700; }
+
+.product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.product-card {
+  border: 2px solid var(--black); border-radius: var(--radius); overflow: hidden; background: var(--white);
+  display: flex; flex-direction: column;
+}
+.product-card img { width: 100%; height: 130px; object-fit: contain; background: var(--green-light); padding: 1rem; }
+.product-info { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.3rem; flex: 1; }
+.product-info h3 { margin: 0; font-size: 1rem; }
+.product-info .farm { font-size: 0.82rem; color: var(--muted); margin: 0; }
+.price { font-weight: 700; font-size: 1.1rem; color: var(--green-dark); margin: 0; }
+.product-info .btn { margin-top: auto; padding: 0.55rem 0.8rem; font-size: 0.9rem; }
+.no-results { display: none; text-align: center; padding: 2rem; border: 2px dashed var(--grey-dark); border-radius: var(--radius); }
+
+/* ---------- Shop layout ---------- */
+.page-head { background: var(--green-light); border-bottom: 2px solid var(--black); padding: 2rem 0; }
+.page-head h1 { margin: 0 0 0.3rem; }
+.page-head p { margin: 0; color: var(--muted); }
+
+.shop-layout { display: grid; gap: 1.5rem; }
+.filters {
+  border: 2px solid var(--black); border-radius: var(--radius); padding: 1rem 1.25rem; background: var(--white);
+}
+.filters summary { font-weight: 700; font-size: 1.15rem; cursor: pointer; }
+.filters fieldset { border: 0; padding: 0; margin: 1rem 0 0; }
+.filters legend { font-weight: 700; margin-bottom: 0.4rem; padding: 0; }
+.filters label { display: flex; align-items: center; gap: 0.6rem; padding: 0.3rem 0; cursor: pointer; }
+.filters input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--green); }
+.price-row { display: flex; gap: 0.8rem; }
+.price-row label { flex: 1; display: block; font-size: 0.9rem; }
+.price-row input {
+  width: 100%; padding: 0.6rem; font: inherit; border: 2px solid var(--black); border-radius: var(--radius);
+}
+.filters .btn { width: 100%; margin-top: 1rem; }
+.result-count { margin-bottom: 1rem; color: var(--muted); }
+
+/* ---------- About ---------- */
+.split { display: grid; gap: 2rem; align-items: start; }
+.image-frame {
+  border: 2px solid var(--black); border-radius: var(--radius); overflow: hidden; background: var(--green-light);
+}
+.image-frame img { width: 100%; height: auto; }
+.value-grid { display: grid; gap: 1rem; }
+.value-card { border: 2px solid var(--black); border-radius: var(--radius); padding: 1.5rem; background: var(--white); }
+.value-card svg { width: 44px; height: 44px; margin-bottom: 0.6rem; }
+.value-card h3 { margin-bottom: 0.3rem; }
+.value-card p { margin: 0; }
+.cta-center { text-align: center; margin-top: 2.5rem; }
+
+.farmer-grid { display: grid; gap: 1rem; }
+.farmer-card { border: 2px solid var(--black); border-radius: var(--radius); padding: 1.25rem; display: flex; gap: 1rem; align-items: center; }
+.farmer-card .avatar {
+  width: 64px; height: 64px; border-radius: 50%; background: var(--green); color: var(--white);
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.4rem; flex: none;
+}
+.farmer-card h3 { margin: 0; font-size: 1.05rem; }
+.farmer-card p { margin: 0; font-size: 0.9rem; color: var(--muted); }
+
+/* ---------- Sell ---------- */
+.banner {
+  background: var(--grey); border: 2px solid var(--black); border-radius: var(--radius);
+  padding: 2rem 1.5rem; text-align: center;
+}
+.banner h2 { font-size: 1.7rem; }
+.banner p { max-width: 60ch; margin: 0 auto 1.2rem; font-size: 1.05rem; }
+.banner .btn-row { justify-content: center; }
+.benefit-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.8rem; }
+.benefit-list li {
+  display: flex; align-items: center; gap: 0.8rem; background: var(--grey);
+  border: 2px solid var(--black); border-radius: var(--radius); padding: 1rem 1.25rem; font-weight: 600;
+}
+.benefit-list svg { width: 28px; height: 28px; flex: none; }
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; counter-reset: step; }
+.steps li {
+  counter-increment: step; border: 2px solid var(--black); border-radius: var(--radius);
+  background: var(--grey); padding: 1.25rem; text-align: center; font-size: 1.3rem; font-weight: 700;
+}
+.steps li::before {
+  content: "Step " counter(step); display: block; font-size: 0.8rem; font-weight: 700; color: var(--muted); margin-bottom: 0.2rem;
+}
+.steps li span { display: block; font-size: 0.9rem; font-weight: 400; color: var(--muted); margin-top: 0.3rem; }
+
+/* ---------- Contact / forms ---------- */
+.contact-layout { display: grid; gap: 2.5rem; }
+.form-group { margin-bottom: 1.1rem; }
+.form-group label { display: block; font-weight: 700; margin-bottom: 0.35rem; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 0.8rem; font: inherit; border: 2px solid var(--black); border-radius: var(--radius); background: var(--white);
+}
+.form-group textarea { min-height: 170px; resize: vertical; }
+.form-group .error { display: none; color: #b00020; font-size: 0.88rem; margin-top: 0.3rem; }
+.form-group.invalid input, .form-group.invalid textarea { border-color: #b00020; }
+.form-group.invalid .error { display: block; }
+.form-success {
+  display: none; background: var(--green-light); border: 2px solid var(--green); border-radius: var(--radius);
+  padding: 1rem 1.25rem; margin-top: 1rem; font-weight: 600;
+}
+.contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; }
+.contact-list li { display: flex; align-items: center; gap: 1rem; }
+.contact-list svg { width: 48px; height: 48px; flex: none; }
+.contact-list strong { display: block; font-size: 1.1rem; }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--black); color: var(--white); margin-top: 2rem; }
+.footer-inner {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem;
+  padding: 1.5rem 1.25rem; max-width: var(--max); margin: 0 auto;
+}
+.footer-inner img { width: 56px; height: 56px; background: var(--white); border-radius: 8px; padding: 4px; }
+.footer-inner p { margin: 0; font-weight: 700; }
+.footer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 1rem; padding: 0; margin: 0 0 0 auto; }
+.footer-links a { color: var(--white); text-decoration: none; }
+.footer-links a:hover { text-decoration: underline; }
+
+/* =========================================================
+   TABLET  (768px and up)
+   ========================================================= */
+@media (min-width: 768px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.9rem; }
+  .container { padding: 0 2rem; }
+  .section { padding-top: 4rem; padding-bottom: 4rem; }
+
+  .hero-inner { padding: 4rem 2rem; }
+  .hero h1 { font-size: 3rem; }
+
+  .info-strip { grid-template-columns: repeat(3, 1fr); }
+  .category-grid { grid-template-columns: repeat(3, 1fr); }
+  .product-grid { grid-template-columns: repeat(3, 1fr); }
+
+  .split { grid-template-columns: 1fr 1fr; }
+  .value-grid { grid-template-columns: repeat(3, 1fr); }
+  .farmer-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+  .benefit-list { grid-template-columns: repeat(2, 1fr); }
+  .contact-layout { grid-template-columns: 1.3fr 1fr; }
+}
+
+/* =========================================================
+   DESKTOP  (1024px and up)
+   ========================================================= */
+@media (min-width: 1024px) {
+  .menu-toggle { display: none; }
+  .main-nav { display: block; width: auto; }
+  .main-nav ul { display: flex; gap: 2rem; }
+  .main-nav a { border: 0; padding: 0.4rem 0; }
+
+  .hero-inner { grid-template-columns: 1.1fr 1fr; }
+  .hero-art { display: block; }
+  .hero h1 { font-size: 3.4rem; }
+
+  .category-grid { grid-template-columns: repeat(5, 1fr); }
+  .product-grid { grid-template-columns: repeat(3, 1fr); }
+  .shop-layout { grid-template-columns: 270px 1fr; align-items: start; }
+  .filters { position: sticky; top: 100px; }
+  .farmer-grid { grid-template-columns: repeat(3, 1fr); }
+  .steps { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+.page[hidden]{display:none}
+
+
+/* =========================================================
+   POLISH LAYER - softer, friendlier look
+   ========================================================= */
+:root {
+  --green: #2e7d32;
+  --green-dark: #1b5e20;
+  --green-light: #eef7ee;
+  --honey: #f6b73c;
+  --cream: #fffaf0;
+  --line: #dde6da;
+  --shadow: 0 6px 24px rgba(27, 94, 32, 0.10);
+  --shadow-hover: 0 14px 34px rgba(27, 94, 32, 0.18);
+  --radius: 16px;
+}
+body { background: #fcfdfb; }
+h1, h2, h3 { letter-spacing: -0.01em; }
+
+/* header */
+.site-header {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.05);
+}
+.main-nav a[aria-current="page"] { text-decoration: none; }
+@media (min-width: 1024px) {
+  .main-nav a { padding: 0.5rem 1rem; border-radius: 999px; transition: background 0.2s, color 0.2s; }
+  .main-nav a:hover { background: var(--green-light); }
+  .main-nav a[aria-current="page"] { background: var(--green); color: #fff; }
+  .main-nav ul { gap: 0.4rem; }
+}
+.menu-toggle { border-radius: 12px; border-width: 1px; border-color: var(--line); }
+
+/* buttons */
+.btn { border-radius: 999px; border-width: 2px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+.btn:hover { box-shadow: 0 8px 18px rgba(0,0,0,0.14); }
+.btn-dark { background: var(--green); border-color: var(--green); color: #fff; }
+.btn-dark:hover { background: var(--green-dark); border-color: var(--green-dark); }
+.btn-light { border-color: var(--green); color: var(--green-dark); }
+.btn:disabled { opacity: 0.65; cursor: wait; transform: none; }
+
+/* hero */
+.hero {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(246,183,60,0.28), transparent 45%),
+    linear-gradient(135deg, #e3f3e3 0%, #f7fbf3 55%, #fff6df 100%);
+  border-bottom: 1px solid var(--line);
+}
+.eyebrow {
+  display: inline-block; margin-bottom: 1rem; padding: 0.35rem 0.9rem;
+  background: #fff; color: var(--green-dark); font-weight: 700; font-size: 0.85rem;
+  border: 1px solid var(--line); border-radius: 999px; box-shadow: var(--shadow);
+}
+.hero h1 { color: #14301a; }
+.hero-art { border-radius: 24px; box-shadow: var(--shadow-hover); transform: rotate(1.5deg); }
+
+/* cards */
+.info-card, .category-card, .product-card, .value-card, .farmer-card, .filters, .banner,
+.benefit-list li, .steps li {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.info-card { background: #fff; }
+.info-card svg { background: var(--green-light); border-radius: 12px; padding: 8px; width: 48px; height: 48px; }
+.category-card, .product-card { transition: transform 0.2s, box-shadow 0.2s; }
+.category-card:hover, .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+.category-card img, .product-card img { background: linear-gradient(160deg, #eaf6ea, #fff6df); }
+.product-card .price { color: var(--green-dark); }
+.banner { background: linear-gradient(135deg, #eef7ee, #fff6df); }
+.benefit-list li, .steps li { background: #fff; }
+.steps li::before { color: var(--green); }
+.value-card svg { background: var(--green-light); border-radius: 14px; padding: 10px; width: 56px; height: 56px; }
+.image-frame { border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow-hover); }
+.page-head { background: linear-gradient(135deg, #e3f3e3, #fff6df); border-bottom: 1px solid var(--line); }
+.filters { background: #fff; }
+.filters summary { color: var(--green-dark); }
+#about-believe, [aria-labelledby="believe-title"], #how { background: var(--green-light) !important; }
+
+/* forms */
+.form-group input, .form-group textarea, .price-row input {
+  border: 1.5px solid #b8c7b5; border-radius: 12px; background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input:focus, .form-group textarea:focus, .price-row input:focus {
+  outline: none; border-color: var(--green); box-shadow: 0 0 0 4px rgba(46,125,50,0.15);
+}
+.form-success, .form-error {
+  display: none; border-radius: 12px; padding: 1rem 1.25rem; margin-top: 1rem; font-weight: 600;
+}
+.form-success { background: var(--green-light); border: 1px solid var(--green); color: var(--green-dark); }
+.form-error { background: #fdecea; border: 1px solid #d93025; color: #8a1c14; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* featured + call-to-action (home) */
+.feature-grid { display: grid; gap: 1.25rem; }
+.feature-card {
+  display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+}
+.feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+.feature-card img { width: 100%; height: 170px; object-fit: contain; padding: 1.2rem; background: linear-gradient(160deg, #eaf6ea, #fff6df); }
+.feature-card div { padding: 1rem 1.2rem 1.3rem; display: flex; flex-direction: column; gap: 0.2rem; }
+.feature-card h3 { margin: 0; }
+.feature-card .farm { margin: 0; font-size: 0.88rem; color: var(--muted); }
+.feature-card .price { margin: 0.3rem 0 0.7rem; font-weight: 700; font-size: 1.2rem; color: var(--green-dark); }
+.cta-band {
+  display: grid; gap: 1.5rem; align-items: center;
+  background: linear-gradient(135deg, #1b5e20, #2e7d32); color: #fff;
+  border-radius: 24px; padding: 2.2rem 1.6rem; box-shadow: var(--shadow-hover);
+}
+.cta-band h2 { margin: 0 0 0.4rem; color: #fff; }
+.cta-band p { margin: 0; color: #e6f4e6; max-width: 52ch; }
+.cta-band .btn { background: #fff; color: var(--green-dark); border-color: #fff; justify-self: start; }
+.cta-band .btn:hover { background: var(--cream); }
+.section-more { text-align: center; margin-top: 2rem; }
+@media (min-width: 768px) {
+  .feature-grid { grid-template-columns: repeat(3, 1fr); }
+  .cta-band { grid-template-columns: 1fr auto; padding: 2.8rem; }
+}
+
+/* footer */
+.site-footer { background: linear-gradient(135deg, #14301a, #0f2414); margin-top: 3rem; }
+.footer-links a { opacity: 0.85; }
+.footer-links a:hover { opacity: 1; }
+
+
+/* =========================================================
+   ACCOUNTS, CART, CHECKOUT, EMAIL INBOX
+   ========================================================= */
+.header-actions { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; margin-right: 0.6rem; order: 2; }
+.menu-toggle { order: 3; }
+.main-nav { order: 4; }
+.icon-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: #fff;
+  color: var(--green-dark); text-decoration: none; transition: background 0.2s;
+}
+.icon-btn:hover { background: var(--green-light); }
+.icon-btn svg { width: 22px; height: 22px; }
+.cart-count {
+  position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 5px;
+  background: var(--honey); color: #1a1a1a; font-size: 0.75rem; font-weight: 800;
+  border-radius: 999px; display: flex; align-items: center; justify-content: center; border: 2px solid #fff;
+}
+.cart-count[hidden], .icon-btn[hidden] { display: none; }
+.account-pill {
+  display: inline-flex; align-items: center; gap: 0.4rem; height: 44px; padding: 0 1rem;
+  border-radius: 999px; border: 1px solid var(--green); color: var(--green-dark); font-weight: 700;
+  text-decoration: none; font-size: 0.92rem; white-space: nowrap; max-width: 150px; overflow: hidden; text-overflow: ellipsis;
+}
+.account-pill:hover { background: var(--green-light); }
+.account-pill.signed-in { background: var(--green); color: #fff; }
+@media (min-width: 1024px) {
+  .main-nav { order: 2; margin-left: auto; }
+  .header-actions { order: 3; margin-left: 1rem; margin-right: 0; }
+}
+
+/* auth pages */
+.auth-section { padding: 3rem 0 4rem; background: radial-gradient(circle at 15% 10%, rgba(246,183,60,0.18), transparent 40%), linear-gradient(160deg, #e8f5e9, #fbfdf9 60%); }
+.auth-card {
+  max-width: 460px; margin: 0 auto; background: #fff; border: 1px solid var(--line);
+  border-radius: 24px; box-shadow: var(--shadow-hover); padding: 2.2rem 1.7rem;
+}
+.auth-card .auth-icon {
+  width: 56px; height: 56px; border-radius: 16px; background: var(--green-light);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;
+}
+.auth-card .auth-icon svg { width: 28px; height: 28px; }
+.auth-card h1 { font-size: 1.7rem; margin-bottom: 0.3rem; }
+.auth-sub { color: var(--muted); margin-bottom: 1.5rem; }
+.auth-card .btn { width: 100%; }
+.auth-alt { text-align: center; margin: 1.3rem 0 0; color: var(--muted); }
+.auth-alt a { font-weight: 700; }
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 4.8rem !important; }
+.pw-toggle {
+  position: absolute; right: 0.4rem; top: 50%; transform: translateY(-50%);
+  background: none; border: 0; font: inherit; font-weight: 700; font-size: 0.85rem;
+  color: var(--green-dark); cursor: pointer; padding: 0.5rem 0.7rem; border-radius: 8px;
+}
+.pw-toggle:hover { background: var(--green-light); }
+.strength { display: flex; gap: 4px; margin-top: 0.55rem; }
+.strength i { flex: 1; height: 5px; border-radius: 3px; background: #e3e8e1; transition: background 0.2s; }
+.strength[data-s="1"] i:nth-child(-n+1) { background: #d93025; }
+.strength[data-s="2"] i:nth-child(-n+2) { background: #f6a609; }
+.strength[data-s="3"] i:nth-child(-n+3) { background: #7cb342; }
+.strength[data-s="4"] i { background: #2e7d32; }
+.strength-label { font-size: 0.82rem; color: var(--muted); margin-top: 0.3rem; min-height: 1.2em; }
+.row-between { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.check { display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer; font-size: 0.93rem; }
+.check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--green); flex: none; }
+.check-error { color: #b00020; font-size: 0.88rem; margin: 0.3rem 0 0; display: none; }
+.alert { border-radius: 12px; padding: 0.9rem 1.1rem; margin-bottom: 1.1rem; font-size: 0.95rem; display: none; }
+.alert.show { display: block; }
+.alert-error { background: #fdecea; border: 1px solid #d93025; color: #8a1c14; }
+.alert-ok { background: var(--green-light); border: 1px solid var(--green); color: var(--green-dark); }
+.alert-info { background: #fff8e1; border: 1px solid var(--honey); color: #6d4c00; }
+.alert a { font-weight: 700; }
+.big-check {
+  width: 72px; height: 72px; border-radius: 50%; background: var(--green); color: #fff;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;
+  box-shadow: 0 0 0 10px rgba(46,125,50,0.14);
+}
+.big-check svg { width: 38px; height: 38px; }
+.center { text-align: center; }
+
+/* cart + checkout */
+.cart-layout { display: grid; gap: 1.5rem; align-items: start; }
+.cart-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.cart-item {
+  display: grid; grid-template-columns: 72px 1fr; gap: 0.9rem; align-items: center;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 0.9rem;
+}
+.cart-item img { width: 72px; height: 72px; object-fit: contain; border-radius: 12px; background: linear-gradient(160deg, #eaf6ea, #fff6df); padding: 6px; }
+.cart-item h3 { margin: 0; font-size: 1.02rem; }
+.cart-item .farm { margin: 0; font-size: 0.84rem; color: var(--muted); }
+.cart-item-foot { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.qty { display: inline-flex; align-items: center; border: 1.5px solid #b8c7b5; border-radius: 999px; overflow: hidden; }
+.qty button { width: 38px; height: 38px; border: 0; background: #fff; font-size: 1.2rem; font-weight: 700; cursor: pointer; color: var(--green-dark); }
+.qty button:hover { background: var(--green-light); }
+.qty output { min-width: 34px; text-align: center; font-weight: 700; }
+.link-btn { background: none; border: 0; font: inherit; color: #b00020; cursor: pointer; text-decoration: underline; padding: 0.3rem; }
+.line-total { font-weight: 800; color: var(--green-dark); }
+.summary-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.3rem; }
+.summary-card h2 { font-size: 1.25rem; }
+.sum-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.4rem 0; }
+.sum-row.total { border-top: 1px dashed var(--grey-dark); margin-top: 0.5rem; padding-top: 0.9rem; font-size: 1.2rem; font-weight: 800; }
+.sum-lines { list-style: none; margin: 0 0 0.6rem; padding: 0; font-size: 0.92rem; color: var(--muted); }
+.sum-lines li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.2rem 0; }
+.summary-card .btn { width: 100%; margin-top: 1rem; }
+.empty-state { text-align: center; padding: 3rem 1rem; background: #fff; border: 2px dashed var(--line); border-radius: var(--radius); }
+.empty-state svg { width: 56px; height: 56px; margin: 0 auto 0.8rem; }
+.radio-cards { display: grid; gap: 0.7rem; margin-bottom: 1.1rem; }
+.radio-card {
+  display: flex; gap: 0.8rem; align-items: flex-start; padding: 0.9rem 1rem; cursor: pointer;
+  border: 1.5px solid #b8c7b5; border-radius: 14px; background: #fff; transition: border-color 0.2s, background 0.2s;
+}
+.radio-card:has(input:checked) { border-color: var(--green); background: var(--green-light); box-shadow: 0 0 0 3px rgba(46,125,50,0.12); }
+.radio-card input { margin-top: 4px; accent-color: var(--green); width: 18px; height: 18px; flex: none; }
+.radio-card strong { display: block; }
+.radio-card span { font-size: 0.88rem; color: var(--muted); }
+.form-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.4rem; margin-bottom: 1.2rem; }
+.form-card h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+.form-group select { appearance: auto; }
+.two-col { display: grid; gap: 1rem; }
+.form-group input:disabled { background: #f4f4f4; }
+@media (min-width: 640px) { .two-col { grid-template-columns: 1fr 1fr; } .cart-item { grid-template-columns: 72px 1fr auto; } .cart-item-foot { grid-column: auto; flex-direction: column; align-items: flex-end; } }
+@media (min-width: 960px) { .cart-layout { grid-template-columns: 1.6fr 1fr; } .summary-card.sticky { position: sticky; top: 100px; } }
+
+/* account */
+.acct-head { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+.acct-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--green); color: #fff; font-weight: 800; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; flex: none; }
+.acct-grid { display: grid; gap: 1.2rem; }
+.order-card { border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.1rem; background: #fff; margin-bottom: 0.8rem; }
+.order-card header { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.3rem; }
+.badge { display: inline-block; padding: 0.15rem 0.7rem; border-radius: 999px; font-size: 0.78rem; font-weight: 700; background: #fff3cd; color: #6d4c00; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; margin: 0; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; font-weight: 600; word-break: break-word; }
+@media (min-width: 900px) { .acct-grid { grid-template-columns: 1fr 1.5fr; align-items: start; } }
+
+/* toast + inbox */
+.toast {
+  position: fixed; left: 50%; bottom: 1.2rem; transform: translate(-50%, 140%); z-index: 400;
+  background: #14301a; color: #fff; border-radius: 14px; padding: 0.8rem 1.1rem; box-shadow: 0 12px 34px rgba(0,0,0,0.3);
+  display: flex; align-items: center; gap: 1rem; max-width: calc(100vw - 2rem); transition: transform 0.35s ease;
+}
+.toast.show { transform: translate(-50%, 0); }
+.toast button { background: var(--honey); color: #1a1a1a; border: 0; border-radius: 999px; font: inherit; font-weight: 700; padding: 0.4rem 0.9rem; cursor: pointer; white-space: nowrap; }
+.modal { position: fixed; inset: 0; z-index: 500; background: rgba(10, 25, 12, 0.6); display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.modal[hidden] { display: none; }
+.mail-app { background: #fff; width: 100%; max-width: 1000px; height: min(86vh, 720px); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 70px rgba(0,0,0,0.4); }
+.mail-top { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.1rem; background: #14301a; color: #fff; }
+.mail-top strong { font-size: 1.05rem; }
+.mail-top button { background: rgba(255,255,255,0.15); color: #fff; border: 0; border-radius: 999px; width: 36px; height: 36px; font-size: 1.2rem; cursor: pointer; }
+.mail-cols { display: grid; grid-template-rows: 150px 1fr; flex: 1; min-height: 0; }
+.mail-list { overflow-y: auto; border-bottom: 1px solid var(--line); background: #f8faf7; }
+.mail-list button { display: block; width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--line); background: transparent; padding: 0.7rem 1rem; font: inherit; cursor: pointer; }
+.mail-list button:hover, .mail-list button.active { background: #e8f5e9; }
+.mail-list b { display: block; font-size: 0.93rem; }
+.mail-list small { color: var(--muted); }
+.mail-view { overflow-y: auto; background: #f3f7f1; }
+.mail-meta { padding: 0.9rem 1.2rem; background: #fff; border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+.mail-meta h3 { margin: 0 0 0.3rem; }
+.mail-empty { padding: 2.5rem 1rem; text-align: center; color: var(--muted); }
+.mail-note { font-size: 0.78rem; padding: 0.5rem 1rem; background: #fff8e1; color: #6d4c00; border-top: 1px solid #f0dfa8; }
+@media (min-width: 800px) { .mail-cols { grid-template-columns: 300px 1fr; grid-template-rows: 1fr; } .mail-list { border-bottom: 0; border-right: 1px solid var(--line); } }
+.footer-links button { background: none; border: 0; color: #fff; font: inherit; cursor: pointer; opacity: 0.85; padding: 0; }
+.footer-links button:hover { opacity: 1; text-decoration: underline; }
+.mini-note { font-size: 0.85rem; color: var(--muted); }
+
+
+/* owner profile (About page) */
+.owner-card { display: grid; gap: 1.5rem; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow-hover); padding: 1.5rem; max-width: 820px; margin: 0 auto; }
+.owner-card img { width: 100%; max-width: 260px; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 22%; border-radius: 20px; border: 4px solid var(--green-light); margin: 0 auto; box-shadow: var(--shadow); }
+.owner-card h3 { font-size: 1.5rem; margin: 0 0 0.2rem; }
+.owner-role { display: inline-block; background: var(--green-light); color: var(--green-dark); font-weight: 700; font-size: 0.85rem; padding: 0.25rem 0.8rem; border-radius: 999px; margin-bottom: 0.8rem; }
+@media (min-width: 700px) { .owner-card { grid-template-columns: 260px 1fr; padding: 2rem; } .owner-card img { margin: 0; } }
+  </style>
+  <link rel="stylesheet" href="css/harvesthub-extra.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#home" aria-label="HarvestHub home">
+        <img src="images/logo.svg" alt="" width="44" height="44">
+        <span class="logo-text"><strong>HarvestHub</strong><span>Local · Fresh · Direct</span></span>
+      </a>
+      <div class="header-actions">
+        <a class="icon-btn" href="#cart" aria-label="Shopping cart" id="cart-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 10.2a1.5 1.5 0 001.5 1.2h8.2a1.5 1.5 0 001.5-1.1L20.5 8H6"/><circle cx="9.5" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg>
+          <span class="cart-count" id="cart-count" hidden>0</span>
+        </a>
+        <button class="icon-btn" type="button" id="admin-inbox" aria-label="Admin email inbox" title="Email inbox" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></button>
+        <a class="account-pill" id="account-link" href="#login">Sign in</a>
+        <button type="button" class="account-pill" id="header-signout" hidden>Sign out</button>
+      </div>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span></button>
+      <nav class="main-nav" id="main-nav" aria-label="Main">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#sell">Sell</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="page" id="page-home">
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div>
+          <span class="eyebrow">Sierra Leone's local farm marketplace</span>
+          <h1 id="hero-title">Fresh from local farms to your table</h1>
+          <p>Order from many local farms in one place. Pick up at the weekly market or get it delivered to your door.</p>
+          <div class="btn-row">
+            <a class="btn btn-dark" href="#shop">SHOP NOW</a>
+            <a class="btn btn-light" href="#about">Find a farmer</a>
+          </div>
+        </div>
+        <img class="hero-art" src="images/pages/hero.jpg" alt="Illustration of a green farm field with ripe tomatoes" width="400" height="300" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+      </div>
+    </section>
+
+    <div class="container">
+      <section class="info-strip" aria-label="How to get your food">
+        <div class="info-card"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="40" height="40"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg><div><strong>Market pick-up</strong><span>Saturday 9am to 1pm</span></div></div>
+        <div class="info-card"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="40" height="40"><path d="M2 6h12v10H2z"/><path d="M14 9h4l3 3v4h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><div><strong>Home delivery</strong><span>Tuesday and Friday</span></div></div>
+        <div class="info-card"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="40" height="40"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div><strong>Within 30 miles</strong><span>Every farm is local</span></div></div>
+      </section>
+    </div>
+
+    <section class="section" aria-labelledby="cat-title">
+      <div class="container">
+        <h2 class="section-title" id="cat-title">Shop by category</h2>
+        <ul class="category-grid" style="list-style:none;padding:0;margin:0">
+      <li><a class="category-card" href="#shop" data-category="vegetables">
+        <img src="images/categories/cat-vegetables.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+        <span>Vegetables</span>
+      </a></li>
+      <li><a class="category-card" href="#shop" data-category="fruits">
+        <img src="images/categories/cat-fruits.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+        <span>Fruits</span>
+      </a></li>
+      <li><a class="category-card" href="#shop" data-category="eggs">
+        <img src="images/categories/cat-eggs.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+        <span>Eggs</span>
+      </a></li>
+      <li><a class="category-card" href="#shop" data-category="meats">
+        <img src="images/categories/cat-meats.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+        <span>Meats</span>
+      </a></li>
+      <li><a class="category-card" href="#shop" data-category="bakery">
+        <img src="images/categories/cat-bakery.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+        <span>Bakery</span>
+      </a></li>
+        </ul>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="feat-title" style="padding-top:0">
+      <div class="container">
+        <h2 class="section-title" id="feat-title">Fresh this week</h2>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <img src="images/products/tomatoes.jpg" alt="Heirloom tomatoes" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div><h3>Heirloom tomatoes</h3><p class="farm">Conteh Family Farm</p><p class="price">$4.50</p><a class="btn btn-dark" href="#shop">Order now</a></div>
+          </article>
+          <article class="feature-card">
+            <img src="images/products/strawberries.jpg" alt="Strawberries" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div><h3>Strawberries</h3><p class="farm">Hill Top Orchard</p><p class="price">$6.00</p><a class="btn btn-dark" href="#shop">Order now</a></div>
+          </article>
+          <article class="feature-card">
+            <img src="images/products/honey.jpg" alt="Raw honey" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div><h3>Raw honey</h3><p class="farm">Kamara Bee Keepers</p><p class="price">$8.00</p><a class="btn btn-dark" href="#shop">Order now</a></div>
+          </article>
+        </div>
+        <div class="section-more"><a class="btn btn-light" href="#shop">See all products</a></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta-band">
+          <div>
+            <h2 id="cta-title">Are you a farmer?</h2>
+            <p>Sell your harvest to your neighbour. Set your own prices, get paid weekly and keep more of every sale.</p>
+          </div>
+          <a class="btn" href="#sell">Start selling</a>
+        </div>
+      </div>
+    </section>
+
+    </div>
+    <div class="page" id="page-shop" hidden>
+
+    <div class="page-head">
+      <div class="container">
+        <h1>Shop</h1>
+        <p>Fresh food from local farms. Choose market pick-up or home delivery.</p>
+      </div>
+    </div>
+
+    <div class="container section">
+      <div class="shop-layout">
+        <details class="filters" open>
+          <summary>Filters</summary>
+          <form id="filter-form">
+            <fieldset>
+              <legend>Category</legend>
+              <label><input type="checkbox" name="category" value="vegetables"> Vegetables</label>
+              <label><input type="checkbox" name="category" value="fruits"> Fruits</label>
+              <label><input type="checkbox" name="category" value="eggs"> Eggs</label>
+              <label><input type="checkbox" name="category" value="bakery"> Bakery</label>
+              <label><input type="checkbox" name="category" value="meats"> Meats</label>
+              <label><input type="checkbox" name="category" value="honey"> Honey</label>
+            </fieldset>
+            <fieldset>
+              <legend>Dietary</legend>
+              <label><input type="checkbox" name="dietary" value="organic"> Organic</label>
+              <label><input type="checkbox" name="dietary" value="pesticide-free"> Pesticide free</label>
+              <label><input type="checkbox" name="dietary" value="vegan"> Vegan</label>
+            </fieldset>
+            <fieldset>
+              <legend>Fulfilment</legend>
+              <label><input type="checkbox" name="fulfilment" value="pickup"> Market pick-up</label>
+              <label><input type="checkbox" name="fulfilment" value="delivery"> Home delivery</label>
+            </fieldset>
+            <fieldset>
+              <legend>Price ($)</legend>
+              <div class="price-row">
+                <label>Min<input type="number" name="min" min="0" step="0.5" placeholder="0"></label>
+                <label>Max<input type="number" name="max" min="0" step="0.5" placeholder="20"></label>
+              </div>
+            </fieldset>
+            <button class="btn btn-light" type="reset">Clear filters</button>
+          </form>
+        </details>
+
+        <section aria-labelledby="shop-heading">
+          <h2 id="shop-heading">All products</h2>
+          <p class="result-count" id="result-count" aria-live="polite"></p>
+          <ul class="product-grid" style="list-style:none;padding:0;margin:0">
+        <li>
+          <article class="product-card" data-category="vegetables" data-price="4.5" data-dietary="organic pesticide-free vegan" data-fulfilment="pickup delivery">
+            <img src="images/products/tomatoes.jpg" alt="Heirloom tomatoes" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div class="product-info">
+              <h3>Heirloom tomatoes</h3>
+              <p class="farm">Conteh Family Farm</p>
+              <p class="price">$4.50</p>
+              <a class="btn btn-dark" href="#contact">Order</a>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="product-card" data-category="vegetables" data-price="4.5" data-dietary="pesticide-free vegan" data-fulfilment="pickup delivery">
+            <img src="images/products/sweet-corn.jpg" alt="Sweet corn" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div class="product-info">
+              <h3>Sweet corn</h3>
+              <p class="farm">Hastings Green Farm</p>
+              <p class="price">$4.50</p>
+              <a class="btn btn-dark" href="#contact">Order</a>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="product-card" data-category="eggs" data-price="4.5" data-dietary="organic" data-fulfilment="pickup delivery">
+            <img src="images/products/eggs.jpg" alt="Fresh eggs" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div class="product-info">
+              <h3>Fresh eggs</h3>
+              <p class="farm">Sesay Poultry</p>
+              <p class="price">$4.50</p>
+              <a class="btn btn-dark" href="#contact">Order</a>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="product-card" data-category="honey" data-price="8.0" data-dietary="organic pesticide-free" data-fulfilment="pickup">
+            <img src="images/products/honey.jpg" alt="Raw honey" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div class="product-info">
+              <h3>Raw honey</h3>
+              <p class="farm">Kamara Bee Keepers</p>
+              <p class="price">$8.00</p>
+              <a class="btn btn-dark" href="#contact">Order</a>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="product-card" data-category="fruits" data-price="6.0" data-dietary="organic vegan" data-fulfilment="pickup delivery">
+            <img src="images/products/strawberries.jpg" alt="Strawberries" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div class="product-info">
+              <h3>Strawberries</h3>
+              <p class="farm">Hill Top Orchard</p>
+              <p class="price">$6.00</p>
+              <a class="btn btn-dark" href="#contact">Order</a>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="product-card" data-category="bakery" data-price="3.5" data-dietary="" data-fulfilment="pickup delivery">
+            <img src="images/products/bread.jpg" alt="Fresh loaves" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div class="product-info">
+              <h3>Fresh loaves</h3>
+              <p class="farm">Village Bakehouse</p>
+              <p class="price">$3.50</p>
+              <a class="btn btn-dark" href="#contact">Order</a>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="product-card" data-category="fruits" data-price="5.0" data-dietary="pesticide-free vegan" data-fulfilment="delivery">
+            <img src="images/products/apples.jpg" alt="Red apples" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div class="product-info">
+              <h3>Red apples</h3>
+              <p class="farm">Hill Top Orchard</p>
+              <p class="price">$5.00</p>
+              <a class="btn btn-dark" href="#contact">Order</a>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="product-card" data-category="meats" data-price="12.0" data-dietary="pesticide-free" data-fulfilment="pickup">
+            <img src="images/products/chicken.jpg" alt="Free-range chicken" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div class="product-info">
+              <h3>Free-range chicken</h3>
+              <p class="farm">Sesay Poultry</p>
+              <p class="price">$12.00</p>
+              <a class="btn btn-dark" href="#contact">Order</a>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="product-card" data-category="vegetables" data-price="2.5" data-dietary="organic pesticide-free vegan" data-fulfilment="pickup delivery">
+            <img src="images/products/spinach.jpg" alt="Garden spinach" loading="lazy" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')">
+            <div class="product-info">
+              <h3>Garden spinach</h3>
+              <p class="farm">Conteh Family Farm</p>
+              <p class="price">$2.50</p>
+              <a class="btn btn-dark" href="#contact">Order</a>
+            </div>
+          </article>
+        </li>
+          </ul>
+          <p class="no-results" id="no-results">No products match your filters. Try clearing some filters.</p>
+        </section>
+      </div>
+    </div>
+    </div>
+    <div class="page" id="page-about" hidden>
+
+    <div class="page-head">
+      <div class="container"><h1>About HarvestHub</h1><p>Local, fresh and direct since 2010.</p></div>
+    </div>
+
+    <section class="section" aria-labelledby="story-title">
+      <div class="container split">
+        <div class="image-frame"><img src="images/pages/farmhouse.jpg" alt="Illustration of a farm house with trees and fields" width="400" height="300" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')"></div>
+        <div>
+          <h2 id="story-title">Our story</h2>
+          <p>HarvestHub was started in 2010 by two brothers.</p>
+          <p>We built one place where you can order from many farms at once. Then pick up at the weekly market, or get it delivered within a short time.</p>
+          <a class="btn btn-dark" href="#farmers">MEET OUR FARMERS</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="owner-title">
+      <div class="container">
+        <h2 class="section-title" id="owner-title">Meet the owner</h2>
+        <div class="owner-card">
+          <img src="images/pages/owner.jpg" alt="Abu Bakarr Kamara, owner of HarvestHub" width="260" height="260" loading="lazy">
+          <div>
+            <h3>Abu Bakarr Kamara</h3>
+            <span class="owner-role">Owner, HarvestHub</span>
+            <p>HarvestHub connects families with the farmers closest to them, so fresh food reaches your table straight from the farm.</p>
+            <a class="btn btn-dark" href="#contact">Contact me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="believe-title" style="background:var(--green-light)">
+      <div class="container">
+        <h2 class="section-title" id="believe-title">What we believe</h2>
+        <div class="value-grid">
+          <article class="value-card"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="44" height="44"><path d="M5 19c0-9 5-14 15-14 0 10-5 15-14 15"/><path d="M5 19c3-5 6-8 10-10"/></svg><h3>Fresh food</h3><p>Food reaches you within a few days of harvest.</p></article>
+          <article class="value-card"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="44" height="44"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7h6z"/><path d="M19 7l-3 7h6z"/></svg><h3>Fair prices</h3><p>Farmers set their own prices.</p></article>
+          <article class="value-card"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="44" height="44"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><h3>Local</h3><p>Every farm is close to you.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="farmers" aria-labelledby="farmers-title">
+      <div class="container">
+        <h2 class="section-title" id="farmers-title">Meet our farmers</h2>
+        <ul class="farmer-grid" style="list-style:none;padding:0;margin:0">
+        <li class="farmer-card"><div class="avatar" aria-hidden="true">MC</div><div><h3>Mohamed Conteh</h3><p>Vegetables and honey, Hastings</p></div></li>
+        <li class="farmer-card"><div class="avatar" aria-hidden="true">FS</div><div><h3>Fatmata Sesay</h3><p>Eggs and poultry, Waterloo</p></div></li>
+        <li class="farmer-card"><div class="avatar" aria-hidden="true">IK</div><div><h3>Ibrahim Kamara</h3><p>Fruit orchard, Regent</p></div></li>
+        </ul>
+        <div class="cta-center"><a class="btn btn-dark" href="#shop">SHOP NOW AND GET THE BEST</a></div>
+      </div>
+    </section>
+    </div>
+    <div class="page" id="page-sell" hidden>
+
+    <div class="page-head">
+      <div class="container"><h1>Sell</h1><p>A direct way for farmers to reach customers.</p></div>
+    </div>
+
+    <section class="section" aria-labelledby="sell-title">
+      <div class="container">
+        <div class="banner">
+          <h2 id="sell-title">Sell your harvest to your neighbour</h2>
+          <p>Reach local customers, set your own prices and get paid weekly. No stall fee and no middleman.</p>
+          <div class="btn-row">
+            <a class="btn btn-dark" href="#apply">Apply to sell</a>
+            <a class="btn btn-light" href="#how">See how it works</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0" aria-labelledby="why-title">
+      <div class="container">
+        <h2 class="section-title" id="why-title">Why farmers choose HarvestHub</h2>
+        <ul class="benefit-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="28" height="28"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Keep more of every sale</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="28" height="28"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Low commissions</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="28" height="28"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Add your own product photos</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="28" height="28"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Weekly payout to your bank</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="how" aria-labelledby="how-title" style="background:var(--green-light)">
+      <div class="container">
+        <h2 class="section-title" id="how-title">How it works</h2>
+        <ol class="steps">
+        <li>Apply<span>Tell us about your farm.</span></li>
+        <li>List<span>Add products, photos and prices.</span></li>
+        <li>Sell<span>Customers order from you.</span></li>
+        <li>Get paid<span>Money in your bank every week.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="apply" aria-labelledby="apply-title">
+      <div class="container" style="max-width:720px">
+        <h2 class="section-title" id="apply-title">Apply to sell</h2>
+        <form data-validate data-subject="New farmer application - HarvestHub" novalidate>
+          <div class="form-group"><label for="a-name">Your name</label><input id="a-name" name="name" type="text" autocomplete="name" required><div class="error">Please enter your name.</div></div>
+          <div class="form-group"><label for="a-email">Email</label><input id="a-email" name="email" type="email" autocomplete="email" required><div class="error">Please enter a valid email address.</div></div>
+          <div class="form-group"><label for="a-farm">Farm name and what you grow</label><textarea id="a-farm" name="message" required></textarea><div class="error">Please tell us about your farm.</div></div>
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-dark" type="submit">Send application</button>
+          <div class="form-success" tabindex="-1" role="status">Thank you! We have received your application and will contact you soon.</div>
+          <div class="form-error" tabindex="-1" role="alert"></div>
+        </form>
+      </div>
+    </section>
+    </div>
+    <div class="page" id="page-contact" hidden>
+
+    <div class="page-head">
+      <div class="container"><h1>Contact us</h1><p>Questions about an order, delivery or selling with us? Send us a message.</p></div>
+    </div>
+
+    <section class="section">
+      <div class="container contact-layout">
+        <form data-validate data-subject="New message from the HarvestHub website" novalidate aria-label="Contact form">
+          <div class="form-group"><label for="c-name">Name</label><input id="c-name" name="name" type="text" autocomplete="name" required><div class="error">Please enter your name.</div></div>
+          <div class="form-group"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email" required><div class="error">Please enter a valid email address.</div></div>
+          <div class="form-group"><label for="c-topic">Topic</label><input id="c-topic" name="topic" type="text" required><div class="error">Please enter a topic.</div></div>
+          <div class="form-group"><label for="c-message">Message</label><textarea id="c-message" name="message" required></textarea><div class="error">Please write a message.</div></div>
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-dark" type="submit">Send message</button>
+          <div class="form-success" tabindex="-1" role="status">Thank you! Your message has been sent.</div>
+          <div class="form-error" tabindex="-1" role="alert"></div>
+        </form>
+
+        <ul class="contact-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="48" height="48"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><div><strong>Email</strong><a href="mailto:info@harvesthub.example">info@harvesthub.example</a></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="48" height="48"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><div><strong>Phone</strong><a href="tel:+23200000000">+232 00 000 000</a></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="48" height="48"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div><strong>Location</strong>Hastings, Sierra Leone</div></li>
+        </ul>
+      </div>
+    </section>
+    </div>
+    <!-- ============ LOGIN ============ -->
+    <div class="page" id="page-login" hidden>
+      <section class="auth-section">
+        <div class="container">
+          <div class="auth-card">
+            <div class="auth-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div>
+            <h1>Welcome back</h1>
+            <p class="auth-sub">Sign in to see your orders and check out faster.</p>
+            <div class="alert alert-ok" id="login-notice" role="status"></div>
+            <div class="alert alert-error" id="login-error" role="alert" tabindex="-1"></div>
+            <form id="login-form" novalidate>
+              <div class="form-group"><label for="l-email">Email</label><input id="l-email" name="email" type="email" autocomplete="email" required><div class="error">Please enter a valid email address.</div></div>
+              <div class="form-group"><label for="l-pass">Password</label><div class="pw-wrap"><input id="l-pass" name="password" type="password" autocomplete="current-password" required><button type="button" class="pw-toggle" data-toggle-pw aria-label="Show password">Show</button></div><div class="error">Please enter your password.</div></div>
+              <div class="row-between">
+                <label class="check"><input type="checkbox" name="remember" checked> Keep me signed in</label>
+                <a href="#forgot">Forgot password?</a>
+              </div>
+              <button class="btn btn-dark" type="submit">Sign in</button>
+            </form>
+            <p class="auth-alt">New to HarvestHub? <a href="#signup">Create an account</a></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ SIGN UP ============ -->
+    <div class="page" id="page-signup" hidden>
+      <section class="auth-section">
+        <div class="container">
+          <div class="auth-card">
+            <div class="auth-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></div>
+            <h1>Create your account</h1>
+            <p class="auth-sub">Order from local farms in minutes. We'll email you a welcome note.</p>
+            <div class="alert alert-error" id="signup-error" role="alert" tabindex="-1"></div>
+            <form id="signup-form" novalidate>
+              <div class="form-group"><label for="s-name">Full name</label><input id="s-name" name="name" type="text" autocomplete="name" required><div class="error">Please enter your name.</div></div>
+              <div class="form-group"><label for="s-email">Email</label><input id="s-email" name="email" type="email" autocomplete="email" required><div class="error">Please enter a valid email address.</div></div>
+              <div class="form-group"><label for="s-phone">Phone <span class="mini-note">(optional, for delivery)</span></label><input id="s-phone" name="phone" type="tel" autocomplete="tel" placeholder="+232 ..."></div>
+              <div class="form-group"><label for="s-pass">Password</label><div class="pw-wrap"><input id="s-pass" name="password" type="password" autocomplete="new-password" required aria-describedby="s-strength"><button type="button" class="pw-toggle" data-toggle-pw aria-label="Show password">Show</button></div>
+                <div class="strength" id="s-bar" data-s="0" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                <div class="strength-label" id="s-strength" aria-live="polite">Use 8+ characters with letters and numbers.</div>
+                <div class="error">Password must be at least 8 characters and include a letter and a number.</div></div>
+              <div class="form-group"><label for="s-pass2">Confirm password</label><input id="s-pass2" name="confirm" type="password" autocomplete="new-password" required><div class="error">Passwords do not match.</div></div>
+              <label class="check"><input type="checkbox" name="terms"> <span>I agree to the HarvestHub terms and privacy policy.</span></label>
+              <p class="check-error" id="terms-error">Please accept the terms to continue.</p>
+              <button class="btn btn-dark" type="submit" style="margin-top:1.2rem">Create account</button>
+            </form>
+            <p class="auth-alt">Already have an account? <a href="#login">Sign in</a></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ FORGOT PASSWORD ============ -->
+    <div class="page" id="page-forgot" hidden>
+      <section class="auth-section">
+        <div class="container">
+          <div class="auth-card">
+            <div class="auth-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+            <h1>Reset your password</h1>
+            <p class="auth-sub">Enter the email you signed up with and we'll send you a 6-digit code to reset your password.</p>
+            <div class="alert alert-ok" id="forgot-ok" role="status" tabindex="-1"></div>
+            <form id="forgot-form" novalidate>
+              <div class="form-group"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required><div class="error">Please enter a valid email address.</div></div>
+              <button class="btn btn-dark" type="submit">Send code</button>
+            </form>
+            <p class="auth-alt"><a href="#login">Back to sign in</a></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ ENTER CODE + NEW PASSWORD ============ -->
+    <div class="page" id="page-reset" hidden>
+      <section class="auth-section">
+        <div class="container">
+          <div class="auth-card">
+            <div class="auth-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
+            <h1>Enter your code</h1>
+            <div class="alert alert-error" id="reset-invalid" role="alert">Something went wrong. <a href="#forgot">Start again</a>.</div>
+            <p class="auth-sub" id="reset-sub"></p>
+            <div class="alert alert-error" id="reset-error" role="alert" tabindex="-1"></div>
+            <form id="reset-form" novalidate>
+              <div class="form-group"><label for="r-code">6-digit code</label><input id="r-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" style="text-align:center;font-size:1.5rem;letter-spacing:0.4em;font-weight:700" required><div class="error">Enter the 6-digit code from your email.</div></div>
+              <div class="form-group"><label for="r-pass">New password</label><div class="pw-wrap"><input id="r-pass" name="password" type="password" autocomplete="new-password" required><button type="button" class="pw-toggle" data-toggle-pw aria-label="Show password">Show</button></div>
+                <div class="strength" id="r-bar" data-s="0" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                <div class="strength-label" id="r-strength" aria-live="polite">Use 8+ characters with letters and numbers.</div>
+                <div class="error">Password must be at least 8 characters and include a letter and a number.</div></div>
+              <div class="form-group"><label for="r-pass2">Confirm new password</label><input id="r-pass2" name="confirm" type="password" autocomplete="new-password" required><div class="error">Passwords do not match.</div></div>
+              <button class="btn btn-dark" type="submit">Update password</button>
+              <p class="auth-alt"><button type="button" class="link-btn" id="resend-code" style="color:var(--green-dark)" disabled>Resend code</button></p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ ACCOUNT ============ -->
+    <div class="page" id="page-account" hidden>
+      <div class="page-head"><div class="container acct-head">
+        <div style="display:flex;gap:1rem;align-items:center"><div class="acct-avatar" id="acct-avatar" aria-hidden="true">H</div><div><h1 id="acct-name" style="margin:0">My account</h1><p id="acct-email"></p></div></div>
+        <button class="btn btn-light" type="button" id="signout-btn">Sign out</button>
+      </div></div>
+      <section class="section"><div class="container">
+        <div class="acct-grid">
+          <div class="form-card">
+            <h2>Your details</h2>
+            <dl class="kv" id="acct-details"></dl>
+            <hr style="border:0;border-top:1px solid var(--line);margin:1.2rem 0">
+            <p class="mini-note">Want to change your password? We'll email you a 6-digit code.</p>
+            <button class="btn btn-light" type="button" id="acct-reset-btn" style="width:100%">Email me a reset code</button>
+          </div>
+          <div>
+            <h2>Order history</h2>
+            <div id="acct-orders"></div>
+          </div>
+        </div>
+      </div></section>
+    </div>
+
+    <!-- ============ CART ============ -->
+    <div class="page" id="page-cart" hidden>
+      <div class="page-head"><div class="container"><h1>Your cart</h1><p>Review your items before checkout.</p></div></div>
+      <section class="section"><div class="container" id="cart-content"></div></section>
+    </div>
+
+    <!-- ============ CHECKOUT ============ -->
+    <div class="page" id="page-checkout" hidden>
+      <div class="page-head"><div class="container"><h1>Checkout</h1><p>Choose how you'd like to get your order. You pay when you receive it.</p></div></div>
+      <section class="section"><div class="container">
+        <div class="cart-layout">
+          <form id="checkout-form" novalidate>
+            <div class="alert alert-info" id="checkout-guest">Have an account? <a href="#login">Sign in</a> to fill in your details automatically.</div>
+            <div class="alert alert-error" id="checkout-error" role="alert" tabindex="-1"></div>
+            <div class="form-card">
+              <h2>1. Your details</h2>
+              <div class="two-col">
+                <div class="form-group"><label for="o-name">Full name</label><input id="o-name" name="name" type="text" autocomplete="name" required><div class="error">Please enter your name.</div></div>
+                <div class="form-group"><label for="o-phone">Phone</label><input id="o-phone" name="phone" type="tel" autocomplete="tel" required><div class="error">Please enter a phone number we can reach you on.</div></div>
+              </div>
+              <div class="form-group"><label for="o-email">Email <span class="mini-note">(we'll send your confirmation here)</span></label><input id="o-email" name="email" type="email" autocomplete="email" required><div class="error">Please enter a valid email address.</div></div>
+            </div>
+            <div class="form-card">
+              <h2>2. Pick-up or delivery</h2>
+              <div class="radio-cards">
+                <label class="radio-card"><input type="radio" name="fulfilment" value="pickup" checked><div><strong>Market pick-up &middot; Free</strong><span>Saturday, 9am to 1pm at the weekly market, Hastings</span></div></label>
+                <label class="radio-card"><input type="radio" name="fulfilment" value="delivery"><div><strong>Home delivery &middot; $2.00</strong><span>Tuesday or Friday, straight to your door</span></div></label>
+              </div>
+              <div id="delivery-fields" hidden>
+                <div class="form-group"><label for="o-day">Delivery day</label><select id="o-day" name="day"><option value="2">Tuesday</option><option value="5">Friday</option></select></div>
+                <div class="form-group"><label for="o-address">Delivery address</label><textarea id="o-address" name="address" style="min-height:100px" placeholder="House number, street, area, nearest landmark"></textarea><div class="error">Please enter your delivery address.</div></div>
+              </div>
+            </div>
+            <div class="form-card">
+              <h2>3. Payment</h2>
+              <div class="radio-cards" style="margin-bottom:0">
+                <label class="radio-card"><input type="radio" name="payment" value="Cash on hand-off" checked><div><strong>Cash</strong><span>Pay the farmer when you collect or receive your order</span></div></label>
+                <label class="radio-card"><input type="radio" name="payment" value="Orange Money on hand-off"><div><strong>Orange Money</strong><span>Pay by mobile money on hand-off</span></div></label>
+                <label class="radio-card"><input type="radio" name="payment" value="Afrimoney on hand-off"><div><strong>Afrimoney</strong><span>Pay by mobile money on hand-off</span></div></label>
+              </div>
+              <div class="form-group" style="margin-top:1.1rem"><label for="o-notes">Notes for the farmer <span class="mini-note">(optional)</span></label><input id="o-notes" name="notes" type="text" maxlength="200"></div>
+            </div>
+            <button class="btn btn-dark" type="submit" style="width:100%">Place order</button>
+          </form>
+          <aside class="summary-card sticky" id="checkout-summary" aria-label="Order summary"></aside>
+        </div>
+      </div></section>
+    </div>
+
+    <!-- ============ ORDER CONFIRMED ============ -->
+    <div class="page" id="page-confirmed" hidden>
+      <section class="auth-section"><div class="container" id="confirmed-content"></div></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <img src="images/logo.svg" alt="HarvestHub logo">
+      <p>&copy; 2026 HarvestHub. All rights reserved.</p>
+      <ul class="footer-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#sell">Sell</a></li>
+      <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-text"></span><button type="button" id="toast-action" hidden></button></div>
+
+  <div class="modal" id="inbox" hidden role="dialog" aria-modal="true" aria-label="Email inbox">
+    <div class="mail-app">
+      <div class="mail-top"><strong>Admin &middot; Email inbox</strong><button type="button" id="inbox-close" aria-label="Close inbox">&times;</button></div>
+      <div class="mail-cols">
+        <div class="mail-list" id="mail-list"></div>
+        <div class="mail-view"><div class="mail-meta" id="mail-meta" hidden></div><div id="mail-body"></div></div>
+      </div>
+      <div class="mail-note">Copies of the emails sent from this browser. Only the admin can see this.</div>
+    </div>
+  </div>
+
+
+  <script>
+/* HarvestHub - interactive features
+   1. Mobile menu toggle
+   2. Shop filters (category, dietary, fulfilment, price)
+   3. Contact / apply form validation
+*/
+
+/* ---------- 1. Mobile menu ---------- */
+(function () {
+  var toggle = document.querySelector('.menu-toggle');
+  var nav = document.getElementById('main-nav');
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Close the menu after choosing a link on small screens
+  nav.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
+/* ---------- 2. Shop filters ---------- */
+(function () {
+  var form = document.getElementById('filter-form');
+  var cards = document.querySelectorAll('.product-card');
+  if (!form || !cards.length) return;
+
+  var count = document.getElementById('result-count');
+  var empty = document.getElementById('no-results');
+  var heading = document.getElementById('shop-heading');
+
+  function checked(name) {
+    return Array.prototype.map.call(
+      form.querySelectorAll('input[name="' + name + '"]:checked'),
+      function (el) { return el.value; }
+    );
+  }
+
+  function applyFilters() {
+    var cats = checked('category');
+    var diets = checked('dietary');
+    var fulfil = checked('fulfilment');
+    var min = parseFloat(form.elements['min'].value) || 0;
+    var max = parseFloat(form.elements['max'].value) || Infinity;
+    var shown = 0;
+
+    cards.forEach(function (card) {
+      var price = parseFloat(card.dataset.price);
+      var cardDiets = card.dataset.dietary.split(' ');
+      var cardFulfil = card.dataset.fulfilment.split(' ');
+
+      var okCat = !cats.length || cats.indexOf(card.dataset.category) !== -1;
+      var okDiet = diets.every(function (d) { return cardDiets.indexOf(d) !== -1; });
+      var okFulfil = !fulfil.length || fulfil.some(function (f) { return cardFulfil.indexOf(f) !== -1; });
+      var okPrice = price >= min && price <= max;
+
+      var visible = okCat && okDiet && okFulfil && okPrice;
+      card.parentElement.hidden = !visible;
+      if (visible) shown++;
+    });
+
+    count.textContent = shown + (shown === 1 ? ' product' : ' products') + ' found';
+    empty.style.display = shown ? 'none' : 'block';
+
+    if (heading) {
+      heading.textContent = cats.length === 1
+        ? form.querySelector('input[name="category"][value="' + cats[0] + '"]').parentElement.textContent.trim()
+        : 'All products';
+    }
+  }
+
+  // Pre-select a category when arriving from the home page (shop.html?category=fruits)
+  // Home page category tiles pre-select a category in the Shop
+  document.querySelectorAll('[data-category]').forEach(function (tile) {
+    tile.addEventListener('click', function () {
+      form.reset();
+      var box = form.querySelector('input[name="category"][value="' + tile.dataset.category + '"]');
+      if (box) box.checked = true;
+      applyFilters();
+    });
+  });
+
+  form.addEventListener('change', applyFilters);
+  form.addEventListener('input', applyFilters);
+  form.addEventListener('reset', function () { setTimeout(applyFilters, 0); });
+  applyFilters();
+})();
+
+/* ---------- 3. Forms: validation + automatic email (EmailJS) ---------- */
+/* SETUP: create a free account at https://www.emailjs.com, then paste your 3 values here.
+   - Service ID  : Email Services > Add service (Gmail) > copy the Service ID
+   - Template ID : Email Templates > Create template > copy the Template ID
+   - Public Key  : Account > General > Public Key
+   Until these are filled in, the form opens the visitor's own email app instead. */
+var EMAILJS_SERVICE_ID = 'service_8gtrew8';
+var EMAILJS_TEMPLATE_ID = 'template_yupcsuy';
+var EMAILJS_PUBLIC_KEY = 'EBDZETdNsFgK_cW26';
+var FALLBACK_EMAIL = 'abubakish81@gmail.com';
+
+(function () {
+  document.querySelectorAll('form[data-validate]').forEach(function (form) {
+    var success = form.querySelector('.form-success');
+    var errorBox = form.querySelector('.form-error');
+    var button = form.querySelector('button[type="submit"]');
+    var buttonText = button.textContent;
+    if (success) success.dataset.text = success.textContent;
+
+    function note(box, text) {
+      success.style.display = 'none';
+      errorBox.style.display = 'none';
+      if (box) { box.textContent = text; box.style.display = 'block'; box.focus(); }
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var valid = true;
+      form.querySelectorAll('.form-group').forEach(function (group) {
+        var field = group.querySelector('input, textarea, select');
+        if (!field) return;
+        var ok = field.value.trim() !== '' && field.checkValidity();
+        group.classList.toggle('invalid', !ok);
+        if (!ok) valid = false;
+      });
+      if (!valid) { note(null); return; }
+      if (form.elements['botcheck'] && form.elements['botcheck'].checked) return; // spam bot
+
+      var f = form.elements;
+      // These names must match the {{variables}} in your EmailJS template
+      var params = {
+        subject: form.dataset.subject,
+        from_name: f['name'].value.trim(),
+        from_email: f['email'].value.trim(),
+        topic: f['topic'] ? f['topic'].value.trim() : form.dataset.subject,
+        message: f['message'].value.trim()
+      };
+      if (window.HH) HH.decorate(form, params);
+
+      var notSetUp = EMAILJS_SERVICE_ID.indexOf('YOUR_') === 0 ||
+                     EMAILJS_TEMPLATE_ID.indexOf('YOUR_') === 0 ||
+                     EMAILJS_PUBLIC_KEY.indexOf('YOUR_') === 0;
+
+      // Not set up yet: open the visitor's email app with the message filled in
+      if (notSetUp) {
+        var body = 'Name: ' + params.from_name + '\nEmail: ' + params.from_email +
+                   '\nTopic: ' + params.topic + '\n\n' + params.message;
+        window.location.href = 'mailto:' + FALLBACK_EMAIL + '?subject=' +
+          encodeURIComponent(params.subject) + '&body=' + encodeURIComponent(body);
+        note(success, 'Your email app has opened with your message. Press send there to finish.');
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = 'Sending...';
+
+      fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service_id: EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id: EMAILJS_PUBLIC_KEY,
+          template_params: params
+        })
+      })
+        .then(function (r) {
+          if (r.ok) { form.reset(); note(success, success.dataset.text); if (window.HH) HH.afterForm(form, params); }
+          else {
+            r.text().then(function (t) {
+              if (window.console) console.error('EmailJS error', r.status, t);
+              note(errorBox, 'Sorry, your message could not be sent. Please try again. (Error ' + r.status + ': ' + String(t).slice(0, 160) + ')');
+            });
+          }
+        })
+        .catch(function () {
+          note(errorBox, 'Network problem. Please check your internet and try again.');
+        })
+        .then(function () { button.disabled = false; button.textContent = buttonText; });
+    });
+  });
+})();
+
+/* ---------- 4. Accounts, cart, checkout, emails and page router ----------
+   NOTE: this is a front-end prototype. Accounts, carts and orders are stored in this
+   browser only (localStorage). A real shop needs a server/database so data is shared
+   across devices and passwords are checked securely.
+
+   EMAILS: ONE EmailJS template (EMAILJS_TEMPLATE_ID above) sends every email. Its
+   variables are: to_email, to_name, reply_to, subject, eyebrow, heading, content, footer_note. */
+var OWNER_EMAIL = FALLBACK_EMAIL; // where website messages and applications are delivered
+
+(function () {
+  var K = { users: 'hh_users', session: 'hh_session', reset: 'hh_reset', cart: 'hh_cart', orders: 'hh_orders', mail: 'hh_mail', last: 'hh_last_order' };
+  var ADMIN_EMAIL = 'abubakish81@gmail.com';
+  var ADMIN_SALT = 'd0103a2af7231bf1';
+  var ADMIN_HASH = '26582c6a727ebe622a789628630cae4225f7e4f7c0b6a629029fe0953b3e412b';
+  var DELIVERY_FEE = 2;
+  var RESET_MINUTES = 10;
+  var catalog = {};
+
+  /* ---------- helpers ---------- */
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function load(k, def) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch (e) { return def; } }
+  function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function money(n) { return '$' + n.toFixed(2); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function rand(n) { var a = new Uint8Array(n); (window.crypto || window.msCrypto).getRandomValues(a); return Array.prototype.map.call(a, function (b) { return ('0' + b.toString(16)).slice(-2); }).join(''); }
+  function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function validPw(v) { return v.length >= 8 && /[A-Za-z]/.test(v) && /[0-9]/.test(v); }
+  function firstName(n) { return String(n || '').trim().split(/\s+/)[0] || 'there'; }
+  function siteUrl(hash) { return location.href.split('#')[0] + (hash || ''); }
+  function fmtDate(d) { return d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }); }
+  function nextDow(dow) { var d = new Date(); var diff = ((dow - d.getDay() + 7) % 7) || 7; d.setDate(d.getDate() + diff); return d; }
+  function hashPw(pw, salt) {
+    if (window.crypto && crypto.subtle && window.TextEncoder) {
+      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(salt + ':' + pw)).then(function (buf) {
+        return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+      });
+    }
+    var h = 5381, s = salt + ':' + pw;
+    for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+    return Promise.resolve('x' + h);
+  }
+
+  /* ---------- toast ---------- */
+  var toastTimer;
+  function toast(text, actionLabel, action) {
+    var t = $('#toast'), btn = $('#toast-action');
+    $('#toast-text').textContent = text;
+    if (actionLabel) { btn.hidden = false; btn.textContent = actionLabel; btn.onclick = function () { t.classList.remove('show'); action(); }; }
+    else { btn.hidden = true; btn.onclick = null; }
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 6500);
+  }
+
+  /* ---------- alerts / field errors ---------- */
+  function showAlert(el, text) { if (!el) return; el.innerHTML = text; el.classList.add('show'); if (el.hasAttribute('tabindex')) el.focus(); }
+  function hideAlert(el) { if (el) { el.classList.remove('show'); } }
+  function setInvalid(input, bad, msg) {
+    var g = input.closest('.form-group'); if (!g) return;
+    g.classList.toggle('invalid', !!bad);
+    var e = g.querySelector('.error'); if (e && msg) e.textContent = msg;
+  }
+  function focusFirstInvalid(form) { var f = form.querySelector('.form-group.invalid input, .form-group.invalid textarea, .form-group.invalid select'); if (f) f.focus(); }
+  function clearInvalid(form) { $$('.form-group', form).forEach(function (g) { g.classList.remove('invalid'); }); }
+
+  /* ---------- session / users ---------- */
+  function users() { return load(K.users, {}); }
+  function getSessionEmail() { try { return sessionStorage.getItem(K.session) || localStorage.getItem(K.session) || null; } catch (e) { return null; } }
+  function currentUser() {
+    var e = getSessionEmail();
+    if (e === ADMIN_EMAIL) return { name: 'Admin', email: ADMIN_EMAIL, phone: '', created: Date.now(), admin: true };
+    var u = e ? users()[e] : null; return u || null;
+  }
+  function isAdmin() { var u = currentUser(); return !!(u && u.admin); }
+  function setSession(email, remember) {
+    try { sessionStorage.removeItem(K.session); localStorage.removeItem(K.session); (remember ? localStorage : sessionStorage).setItem(K.session, email); } catch (e) {}
+  }
+  function clearSession() { try { sessionStorage.removeItem(K.session); localStorage.removeItem(K.session); } catch (e) {} }
+
+  function updateHeader() {
+    var u = currentUser(), a = $('#account-link');
+    if (u) { a.textContent = 'Hi, ' + firstName(u.name); a.href = '#account'; a.classList.add('signed-in'); }
+    else { a.textContent = 'Sign in'; a.href = '#login'; a.classList.remove('signed-in'); }
+    $('#admin-inbox').hidden = !isAdmin();
+    $('#header-signout').hidden = !u;
+    var n = cartCount(), c = $('#cart-count');
+    c.textContent = n; c.hidden = n === 0;
+    $('#cart-link').setAttribute('aria-label', 'Shopping cart, ' + n + (n === 1 ? ' item' : ' items'));
+  }
+
+  /* =========================================================
+     EMAIL TEMPLATES
+     ========================================================= */
+  function shell(preheader, eyebrow, heading, inner, note) {
+    return '<div style="margin:0;padding:24px 12px;background-color:#eef3ec;font-family:\'Segoe UI\',Tahoma,Arial,sans-serif;">' +
+      '<div style="display:none;max-height:0;overflow:hidden;opacity:0">' + esc(preheader) + '</div>' +
+      '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;margin:0 auto;">' +
+      '<tr><td style="background-color:#2e7d32;border-radius:16px 16px 0 0;padding:28px 32px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="font-size:26px;font-weight:700;color:#ffffff;letter-spacing:-0.3px;">&#127807; HarvestHub</td></tr><tr><td style="padding-top:4px;font-size:13px;color:#c8e6c9;">Local &middot; Fresh &middot; Direct</td></tr></table></td></tr>' +
+      '<tr><td style="background-color:#ffffff;padding:32px;border-left:1px solid #dde6da;border-right:1px solid #dde6da;">' +
+      '<p style="margin:0 0 6px 0;font-size:12px;font-weight:700;color:#2e7d32;text-transform:uppercase;letter-spacing:1px;">' + esc(eyebrow) + '</p>' +
+      '<h1 style="margin:0 0 24px 0;font-size:22px;line-height:1.3;color:#14301a;">' + heading + '</h1>' + inner + '</td></tr>' +
+      '<tr><td style="background-color:#14301a;border-radius:0 0 16px 16px;padding:20px 32px;text-align:center;font-size:12px;line-height:1.6;color:#a9c4ab;">' + note + '<br>&copy; 2026 HarvestHub. All rights reserved.</td></tr>' +
+      '</table></div>';
+  }
+  var NOTE_CUSTOMER = 'You are receiving this email because of activity on your HarvestHub account or order.<br>Questions? Just reply to this email.';
+  var NOTE_OWNER = 'This message was sent from the website of your HarvestHub shop.';
+  function mk(subject, eyebrow, heading, inner, pre, note) {
+    return { subject: subject, eyebrow: eyebrow, heading: heading, inner: inner, note: note || NOTE_CUSTOMER, html: shell(pre, eyebrow, heading, inner, note || NOTE_CUSTOMER) };
+  }
+  function ep(t) { return '<p style="margin:0 0 14px;font-size:16px;line-height:1.6;color:#222222">' + t + '</p>'; }
+  function ebtn(href, label) {
+    return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:24px 0 8px"><tr><td style="background-color:#2e7d32;border-radius:999px;"><a href="' + esc(href) + '" style="display:inline-block;padding:14px 28px;font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;">' + esc(label) + '</a></td></tr></table>';
+  }
+  function eqt(t) { return '<div style="background-color:#f3f9f2;border-radius:12px;padding:16px 20px;font-size:15px;line-height:1.6;color:#14301a;margin:0 0 16px">' + t + '</div>'; }
+
+  var T = {
+    welcome: function (u) {
+      return mk('Welcome to HarvestHub, ' + firstName(u.name) + '!', 'Welcome', 'Welcome, ' + esc(firstName(u.name)) + '!',
+        ep('Your HarvestHub account is ready. You can now order fresh food straight from local farms near you.') +
+        eqt('<strong>How it works</strong><br>1. Browse vegetables, fruit, eggs, honey and more<br>2. Add what you like to your cart<br>3. Collect it at the <strong>Saturday market (9am to 1pm)</strong> or get it delivered on <strong>Tuesday or Friday</strong>') +
+        ebtn(siteUrl('#shop'), 'Start shopping') +
+        ep('Farmers set their own prices, so every purchase goes straight to a family near you. Thank you for supporting them.') +
+        ep('Warm regards,<br>The HarvestHub team'), 'Your account is ready. Here is how to get your first order.');
+    },
+    reset: function (u, code) {
+      return mk('Your HarvestHub password reset code: ' + code, 'Password reset', 'Your password reset code',
+        ep('Hi ' + esc(firstName(u.name)) + ', use this code to reset the password for your HarvestHub account:') +
+        '<div style="background-color:#f3f9f2;border:2px dashed #2e7d32;border-radius:12px;padding:20px;text-align:center;font-size:36px;font-weight:800;letter-spacing:10px;color:#14301a;margin:0 0 18px">' + esc(code) + '</div>' +
+        eqt('This code expires in <strong>' + RESET_MINUTES + ' minutes</strong>. Never share it with anyone. HarvestHub will never ask you for it.') +
+        ep('<strong>Did not ask for this?</strong> You can safely ignore this email. Your password will stay the same.'),
+        'Your code is ' + code + '. It expires in ' + RESET_MINUTES + ' minutes.');
+    },
+    changed: function (u) {
+      return mk('Your HarvestHub password was changed', 'Account security', 'Password updated',
+        ep('Hi ' + esc(firstName(u.name)) + ', this is a confirmation that the password for your HarvestHub account was changed on <strong>' + esc(new Date().toLocaleString('en-GB')) + '</strong>.') +
+        ebtn(siteUrl('#login'), 'Sign in') +
+        ep('<strong>If this was not you</strong>, reset your password right away and contact us.'),
+        'Your password was just updated.');
+    },
+    order: function (o) {
+      var rows = o.items.map(function (i) {
+        return '<tr><td style="padding:10px 0;border-bottom:1px solid #e6ece4;font-size:15px;color:#222"><strong>' + esc(i.name) + '</strong><br><span style="color:#5b6b58;font-size:13px">' + esc(i.farm) + ' &middot; ' + i.qty + ' &times; ' + money(i.price) + '</span></td>' +
+          '<td align="right" style="padding:10px 0;border-bottom:1px solid #e6ece4;font-size:15px;white-space:nowrap;color:#222">' + money(i.price * i.qty) + '</td></tr>';
+      }).join('');
+      var how = o.fulfilment === 'pickup'
+        ? '<strong>Market pick-up</strong><br>' + esc(o.when) + ', 9am to 1pm<br>Weekly market, Hastings'
+        : '<strong>Home delivery</strong><br>' + esc(o.when) + '<br>' + esc(o.address).replace(/\n/g, '<br>');
+      return mk('Order ' + o.id + ' confirmed - thank you!', 'Order confirmation', 'Thank you, ' + esc(firstName(o.name)) + '! Order ' + esc(o.id) + ' is confirmed.',
+        ep('We have passed your order to our farmers. Here is a summary.') +
+        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:6px 0 18px">' + rows +
+        '<tr><td style="padding:12px 0 2px;font-size:14px;color:#5b6b58">Subtotal</td><td align="right" style="padding:12px 0 2px;font-size:14px;color:#222">' + money(o.subtotal) + '</td></tr>' +
+        '<tr><td style="padding:2px 0;font-size:14px;color:#5b6b58">' + (o.fulfilment === 'pickup' ? 'Market pick-up' : 'Delivery') + '</td><td align="right" style="padding:2px 0;font-size:14px;color:#222">' + (o.fee ? money(o.fee) : 'Free') + '</td></tr>' +
+        '<tr><td style="padding:12px 0 0;font-size:18px;font-weight:700;border-top:2px solid #14301a;color:#14301a">Total</td><td align="right" style="padding:12px 0 0;font-size:18px;font-weight:700;border-top:2px solid #14301a;color:#14301a">' + money(o.total) + '</td></tr></table>' +
+        eqt(how) +
+        eqt('<strong>Payment</strong><br>' + esc(o.payment) + ' &mdash; nothing to pay online.') +
+        (o.notes ? eqt('<strong>Your note</strong><br>' + esc(o.notes)) : '') +
+        ebtn(siteUrl(o.userEmail ? '#account' : '#shop'), o.userEmail ? 'View my orders' : 'Keep shopping') +
+        ep('Need to change something? Reply to this email as soon as you can and quote your order number.'),
+        'We have received your order ' + o.id + '. Total ' + money(o.total) + '.');
+    },
+    application: function (name) {
+      return mk('We received your application to sell on HarvestHub', 'Application received', 'Thanks for applying, ' + esc(firstName(name)) + '!',
+        ep('We have received your application to sell on HarvestHub and a member of our team will review it.') +
+        eqt('<strong>What happens next</strong><br>1. We review your farm details (within 3 working days)<br>2. We call or email you to arrange a short visit<br>3. You add your products and start selling') +
+        ep('In the meantime, have your product list, photos and bank details ready to speed things up.') +
+        ep('Warm regards,<br>The HarvestHub team'), 'Thanks for applying. Here is what happens next.');
+    },
+    contact: function (name, topic, message) {
+      return mk('We got your message: ' + topic, 'Message received', 'Thanks for getting in touch, ' + esc(firstName(name)) + '!',
+        ep('We have received your message and will reply within <strong>one working day</strong>.') +
+        eqt('<strong>Your message</strong><br><em>Topic: ' + esc(topic) + '</em><br><br>' + esc(message).replace(/\n/g, '<br>')) +
+        ep('Warm regards,<br>The HarvestHub team'), 'Thanks for contacting HarvestHub. We will reply within one working day.');
+    },
+    owner: function (p, isApplication) {
+      var row = function (l, v) { return '<tr><td width="90" style="padding:6px 0;font-size:13px;color:#5b6b58;vertical-align:top;">' + l + '</td><td style="padding:6px 0;font-size:15px;color:#14301a;">' + v + '</td></tr>'; };
+      return mk(p.subject, isApplication ? 'New farmer application' : 'New website message', esc(p.subject),
+        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f3f9f2;border-radius:12px;margin-bottom:24px;"><tr><td style="padding:18px 20px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">' +
+        row('From', '<strong>' + esc(p.from_name) + '</strong>') +
+        row('Email', '<a href="mailto:' + esc(p.from_email) + '" style="color:#1b5e20;">' + esc(p.from_email) + '</a>') +
+        row('Topic', esc(p.topic)) + '</table></td></tr></table>' +
+        '<p style="margin:0 0 8px 0;font-size:13px;font-weight:700;color:#5b6b58;text-transform:uppercase;letter-spacing:0.8px;">Message</p>' +
+        '<div style="padding:18px 20px;border:1px solid #dde6da;border-radius:12px;font-size:16px;line-height:1.6;color:#222222;">' + esc(p.message).replace(/\n/g, '<br>') + '</div>' +
+        ebtn('mailto:' + p.from_email + '?subject=' + encodeURIComponent('Re: ' + p.subject), 'Reply to ' + esc(p.from_name)),
+        'New message from your website', NOTE_OWNER);
+    }
+  };
+
+  /* ---------- sending + demo inbox ---------- */
+  function emailjsSend(to, name, replyTo, tpl) {
+    if (typeof EMAILJS_SERVICE_ID === 'undefined' || EMAILJS_SERVICE_ID.indexOf('YOUR_') === 0) return;
+    fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ service_id: EMAILJS_SERVICE_ID, template_id: EMAILJS_TEMPLATE_ID, user_id: EMAILJS_PUBLIC_KEY,
+        template_params: { to_email: to, to_name: name, reply_to: replyTo || '', subject: tpl.subject, eyebrow: tpl.eyebrow, heading: tpl.heading, content: tpl.inner, footer_note: tpl.note } })
+    }).catch(function () {});
+  }
+  function sendMail(to, name, tpl) {
+    var box = load(K.mail, []);
+    var msg = { id: rand(6), to: to, subject: tpl.subject, html: tpl.html, ts: Date.now() };
+    box.unshift(msg);
+    save(K.mail, box.slice(0, 40));
+    if (isAdmin()) toast('Email sent to ' + to, 'View email', function () { openInbox(msg.id); });
+    else toast('We have sent an email to ' + to);
+    emailjsSend(to, name, OWNER_EMAIL, tpl);
+  }
+
+  var inboxOpener = null;
+  function openInbox(id) {
+    if (!isAdmin()) return;
+    var m = $('#inbox'); inboxOpener = document.activeElement;
+    m.hidden = false; renderInbox(id); $('#inbox-close').focus();
+  }
+  function closeInbox() { $('#inbox').hidden = true; if (inboxOpener && inboxOpener.focus) inboxOpener.focus(); }
+  function renderInbox(activeId) {
+    var box = load(K.mail, []), list = $('#mail-list');
+    if (!box.length) {
+      list.innerHTML = '';
+      $('#mail-meta').hidden = true;
+      var body = $('#mail-body'); (body.shadowRoot || body.attachShadow({ mode: 'open' })).innerHTML = '<div style="padding:40px 16px;text-align:center;color:#667066;font-family:Segoe UI,Arial,sans-serif">No emails yet. Create an account or place an order to see them here.</div>';
+      return;
+    }
+    var id = activeId || box[0].id;
+    list.innerHTML = box.map(function (m) {
+      return '<button type="button" data-mail="' + m.id + '" class="' + (m.id === id ? 'active' : '') + '"><b>' + esc(m.subject) + '</b><small>To ' + esc(m.to) + ' &middot; ' + new Date(m.ts).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + '</small></button>';
+    }).join('');
+    var cur = box.filter(function (m) { return m.id === id; })[0] || box[0];
+    var meta = $('#mail-meta'); meta.hidden = false;
+    meta.innerHTML = '<h3>' + esc(cur.subject) + '</h3>From: HarvestHub &lt;no-reply@harvesthub.example&gt;<br>To: ' + esc(cur.to);
+    var host = $('#mail-body'), root = host.shadowRoot || host.attachShadow({ mode: 'open' });
+    root.innerHTML = cur.html;
+    if (!root.__bound) {
+      root.__bound = true;
+      root.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a'); if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (href.indexOf('#') !== -1) { e.preventDefault(); closeInbox(); location.hash = href.slice(href.indexOf('#')); }
+      });
+    }
+  }
+  $('#mail-list').addEventListener('click', function (e) { var b = e.target.closest('[data-mail]'); if (b) renderInbox(b.dataset.mail); });
+  $('#inbox-close').addEventListener('click', closeInbox);
+  $('#inbox').addEventListener('click', function (e) { if (e.target.id === 'inbox') closeInbox(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('#inbox').hidden) closeInbox(); });
+  $('#admin-inbox').addEventListener('click', function () { openInbox(); });
+
+  /* =========================================================
+     CART
+     ========================================================= */
+  function getCart() { return load(K.cart, []); }
+  function saveCart(c) { save(K.cart, c); updateHeader(); }
+  function cartCount() { return getCart().reduce(function (n, i) { return n + i.qty; }, 0); }
+  function addToCart(item) {
+    var c = getCart(), f = c.filter(function (i) { return i.id === item.id; })[0];
+    if (f) f.qty = Math.min(f.qty + 1, 20); else c.push({ id: item.id, name: item.name, farm: item.farm, price: item.price, qty: 1 });
+    saveCart(c);
+  }
+
+  // turn every "Order" link on product cards into an Add to cart button
+  $$('.product-card, .feature-card').forEach(function (card) {
+    var a = $('a.btn', card), h3 = $('h3', card), farm = $('.farm', card), price = $('.price', card), img = $('img', card);
+    if (!a || !h3 || !price) return;
+    var item = { id: (h3.textContent + '-' + (farm ? farm.textContent : '')).toLowerCase().replace(/[^a-z0-9]+/g, '-'), name: h3.textContent.trim(), farm: farm ? farm.textContent.trim() : '', price: parseFloat(price.textContent.replace(/[^0-9.]/g, '')) };
+    catalog[item.id] = img ? img.getAttribute('src') : '';
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = a.className; b.textContent = 'Add to cart';
+    b.setAttribute('aria-label', 'Add ' + item.name + ' to cart');
+    b.addEventListener('click', function () {
+      addToCart(item);
+      b.textContent = 'Added ✓';
+      setTimeout(function () { b.textContent = 'Add to cart'; }, 1300);
+      toast(item.name + ' added to your cart', 'View cart', function () { location.hash = '#cart'; });
+    });
+    a.parentNode.replaceChild(b, a);
+  });
+
+  function totals(cart, fulfilment) {
+    var sub = cart.reduce(function (s, i) { return s + i.price * i.qty; }, 0);
+    var fee = fulfilment === 'delivery' ? DELIVERY_FEE : 0;
+    return { subtotal: sub, fee: fee, total: sub + fee };
+  }
+  function emptyCartHtml() {
+    return '<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 10.2a1.5 1.5 0 001.5 1.2h8.2a1.5 1.5 0 001.5-1.1L20.5 8H6"/><circle cx="9.5" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg><h2>Your cart is empty</h2><p>Add some fresh food from local farms to get started.</p><a class="btn btn-dark" href="#shop">Browse the shop</a></div>';
+  }
+  function renderCart() {
+    var c = getCart(), box = $('#cart-content');
+    if (!c.length) { box.innerHTML = emptyCartHtml(); return; }
+    var t = totals(c, 'pickup');
+    box.innerHTML = '<div class="cart-layout"><ul class="cart-list">' + c.map(function (i) {
+      return '<li class="cart-item" data-id="' + esc(i.id) + '"><img src="' + esc(catalog[i.id] || '') + '" alt="" onerror="this.onerror=null;this.src=this.src.replace(/\\.jpg$/,\'.svg\')">' +
+        '<div><h3>' + esc(i.name) + '</h3><p class="farm">' + esc(i.farm) + ' &middot; ' + money(i.price) + ' each</p></div>' +
+        '<div class="cart-item-foot"><div class="qty" role="group" aria-label="Quantity for ' + esc(i.name) + '"><button type="button" data-act="dec" aria-label="Decrease quantity">&minus;</button><output>' + i.qty + '</output><button type="button" data-act="inc" aria-label="Increase quantity">+</button></div>' +
+        '<span class="line-total">' + money(i.price * i.qty) + '</span><button type="button" class="link-btn" data-act="rm">Remove</button></div></li>';
+    }).join('') + '</ul>' +
+      '<aside class="summary-card sticky"><h2>Order summary</h2>' +
+      '<div class="sum-row"><span>Subtotal</span><span>' + money(t.subtotal) + '</span></div>' +
+      '<div class="sum-row"><span>Market pick-up</span><span>Free</span></div>' +
+      '<div class="sum-row total"><span>Total</span><span>' + money(t.subtotal) + '</span></div>' +
+      '<p class="mini-note">Delivery ($2.00) is optional and chosen at checkout.</p>' +
+      '<a class="btn btn-dark" href="#checkout">Checkout</a><a class="btn btn-light" href="#shop" style="margin-top:.6rem">Keep shopping</a></aside></div>';
+  }
+  $('#cart-content').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-act]'); if (!b) return;
+    var id = b.closest('.cart-item').dataset.id, c = getCart(), it = c.filter(function (i) { return i.id === id; })[0];
+    if (!it) return;
+    if (b.dataset.act === 'inc') it.qty = Math.min(it.qty + 1, 20);
+    if (b.dataset.act === 'dec') it.qty = Math.max(it.qty - 1, 1);
+    if (b.dataset.act === 'rm') c = c.filter(function (i) { return i.id !== id; });
+    saveCart(c); renderCart();
+  });
+
+  /* =========================================================
+     CHECKOUT
+     ========================================================= */
+  var cf = $('#checkout-form');
+  function fulfilmentValue() { return cf.querySelector('input[name="fulfilment"]:checked').value; }
+  function renderCheckout() {
+    var c = getCart();
+    if (!c.length) { location.replace('#cart'); return; }
+    var u = currentUser();
+    $('#checkout-guest').classList.toggle('show', !u);
+    if (u) {
+      if (!cf.elements['name'].value) cf.elements['name'].value = u.name || '';
+      if (!cf.elements['email'].value) cf.elements['email'].value = u.email || '';
+      if (!cf.elements['phone'].value) cf.elements['phone'].value = u.phone || '';
+    }
+    hideAlert($('#checkout-error'));
+    updateCheckoutSummary();
+  }
+  function updateCheckoutSummary() {
+    var c = getCart(), f = fulfilmentValue(), t = totals(c, f);
+    $('#delivery-fields').hidden = f !== 'delivery';
+    $('#checkout-summary').innerHTML = '<h2>Order summary</h2><ul class="sum-lines">' + c.map(function (i) {
+      return '<li><span>' + i.qty + ' &times; ' + esc(i.name) + '</span><span>' + money(i.price * i.qty) + '</span></li>';
+    }).join('') + '</ul><div class="sum-row"><span>Subtotal</span><span>' + money(t.subtotal) + '</span></div>' +
+      '<div class="sum-row"><span>' + (f === 'delivery' ? 'Delivery' : 'Market pick-up') + '</span><span>' + (t.fee ? money(t.fee) : 'Free') + '</span></div>' +
+      '<div class="sum-row total"><span>Total</span><span>' + money(t.total) + '</span></div>' +
+      '<p class="mini-note">You pay when you ' + (f === 'delivery' ? 'receive' : 'collect') + ' your order. <a href="#cart">Edit cart</a></p>';
+  }
+  cf.addEventListener('change', updateCheckoutSummary);
+  cf.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearInvalid(cf); hideAlert($('#checkout-error'));
+    var f = cf.elements, ful = fulfilmentValue(), bad = false;
+    function chk(el, ok, msg) { if (!ok) { setInvalid(el, true, msg); bad = true; } }
+    chk(f['name'], f['name'].value.trim() !== '');
+    chk(f['phone'], f['phone'].value.replace(/\D/g, '').length >= 7);
+    chk(f['email'], validEmail(f['email'].value.trim()));
+    if (ful === 'delivery') chk(f['address'], f['address'].value.trim().length >= 6);
+    if (bad) { focusFirstInvalid(cf); return; }
+    var cart = getCart(); if (!cart.length) { location.hash = '#cart'; return; }
+    var t = totals(cart, ful), u = currentUser();
+    var when = ful === 'pickup' ? fmtDate(nextDow(6)) : fmtDate(nextDow(parseInt(f['day'].value, 10)));
+    var order = {
+      id: 'HH-' + Math.floor(100000 + Math.random() * 900000), ts: Date.now(),
+      name: f['name'].value.trim(), email: f['email'].value.trim(), phone: f['phone'].value.trim(),
+      fulfilment: ful, when: when, address: ful === 'delivery' ? f['address'].value.trim() : '',
+      payment: cf.querySelector('input[name="payment"]:checked').value, notes: f['notes'].value.trim(),
+      items: cart, subtotal: t.subtotal, fee: t.fee, total: t.total, userEmail: u ? u.email : ''
+    };
+    var all = load(K.orders, []); all.unshift(order); save(K.orders, all);
+    save(K.last, order);
+    saveCart([]);
+    cf.reset();
+    var ot = T.order(order);
+    sendMail(order.email, order.name, ot);
+    emailjsSend(OWNER_EMAIL, 'HarvestHub', order.email, { subject: 'New order ' + order.id + ' from ' + order.name, eyebrow: 'New order', heading: ot.heading, inner: ot.inner + ep('<strong>Customer:</strong> ' + esc(order.name) + ' &middot; ' + esc(order.phone) + ' &middot; ' + esc(order.email)), note: NOTE_OWNER });
+    location.hash = '#confirmed';
+  });
+
+  function renderConfirmed() {
+    var o = load(K.last, null), box = $('#confirmed-content');
+    if (!o) { box.innerHTML = emptyCartHtml(); return; }
+    box.innerHTML = '<div class="auth-card" style="max-width:640px"><div class="big-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>' +
+      '<div class="center"><h1>Thank you, ' + esc(firstName(o.name)) + '!</h1><p class="auth-sub" style="margin-bottom:.4rem">Your order <strong>' + esc(o.id) + '</strong> is confirmed.</p>' +
+      '<p class="mini-note">A confirmation email is on its way to <strong>' + esc(o.email) + '</strong>.' + (isAdmin() ? ' <button type="button" class="link-btn" style="color:var(--green-dark)" id="view-order-email">View email</button>' : '') + '</p></div>' +
+      '<hr style="border:0;border-top:1px solid var(--line);margin:1.4rem 0">' +
+      '<dl class="kv"><dt>' + (o.fulfilment === 'pickup' ? 'Pick-up' : 'Delivery') + '</dt><dd>' + esc(o.when) + (o.fulfilment === 'pickup' ? ', 9am to 1pm, Hastings market' : '') + '</dd>' +
+      (o.address ? '<dt>Address</dt><dd>' + esc(o.address).replace(/\n/g, '<br>') + '</dd>' : '') +
+      '<dt>Payment</dt><dd>' + esc(o.payment) + '</dd><dt>Total</dt><dd>' + money(o.total) + '</dd></dl>' +
+      '<ul class="sum-lines" style="margin-top:1rem">' + o.items.map(function (i) { return '<li><span>' + i.qty + ' &times; ' + esc(i.name) + '</span><span>' + money(i.price * i.qty) + '</span></li>'; }).join('') + '</ul>' +
+      '<div class="btn-row" style="margin-top:1.4rem"><a class="btn btn-dark" href="#shop">Keep shopping</a>' + (o.userEmail ? '<a class="btn btn-light" href="#account">My orders</a>' : '<a class="btn btn-light" href="#signup">Create an account</a>') + '</div></div>';
+    var v = $('#view-order-email'); if (v) v.addEventListener('click', function () { var m = load(K.mail, [])[0]; openInbox(m && m.id); });
+  }
+
+  /* =========================================================
+     AUTH FORMS
+     ========================================================= */
+  $$('[data-toggle-pw]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var input = b.parentNode.querySelector('input'), show = input.type === 'password';
+      input.type = show ? 'text' : 'password'; b.textContent = show ? 'Hide' : 'Show';
+      b.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+    });
+  });
+  function strength(pw) {
+    var s = 0; if (pw.length >= 8) s++; if (/[A-Za-z]/.test(pw) && /[0-9]/.test(pw)) s++; if (pw.length >= 12) s++; if (/[^A-Za-z0-9]/.test(pw) && pw.length >= 8) s++;
+    return pw ? Math.max(s, 1) : 0;
+  }
+  function bindStrength(inputId, barId, labelId) {
+    var labels = ['Use 8+ characters with letters and numbers.', 'Too weak', 'Okay', 'Good', 'Strong'];
+    $('#' + inputId).addEventListener('input', function (e) {
+      var s = strength(e.target.value); $('#' + barId).dataset.s = s; $('#' + labelId).textContent = labels[s];
+    });
+  }
+  bindStrength('s-pass', 's-bar', 's-strength');
+  bindStrength('r-pass', 'r-bar', 'r-strength');
+
+  // sign up
+  var sf = $('#signup-form');
+  sf.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearInvalid(sf); hideAlert($('#signup-error')); $('#terms-error').style.display = 'none';
+    var f = sf.elements, bad = false;
+    var name = f['name'].value.trim(), email = f['email'].value.trim().toLowerCase(), pw = f['password'].value;
+    if (!name) { setInvalid(f['name'], true); bad = true; }
+    if (!validEmail(email)) { setInvalid(f['email'], true); bad = true; }
+    if (!validPw(pw)) { setInvalid(f['password'], true); bad = true; }
+    if (f['confirm'].value !== pw || !f['confirm'].value) { setInvalid(f['confirm'], true); bad = true; }
+    if (!f['terms'].checked) { $('#terms-error').style.display = 'block'; bad = true; }
+    if (bad) { focusFirstInvalid(sf); return; }
+    var all = users();
+    if (all[email] || email === ADMIN_EMAIL) { showAlert($('#signup-error'), 'An account with this email already exists. <a href="#login">Sign in instead</a> or <a href="#forgot">reset your password</a>.'); return; }
+    var salt = rand(8);
+    hashPw(pw, salt).then(function (hash) {
+      var u = { name: name, email: email, phone: f['phone'].value.trim(), salt: salt, hash: hash, created: Date.now() };
+      all[email] = u; save(K.users, all);
+      setSession(email, true); sf.reset(); $('#s-bar').dataset.s = 0;
+      updateHeader();
+      sendMail(email, name, T.welcome(u));
+      location.hash = '#account';
+    });
+  });
+
+  // log in (with a simple lockout against repeated guesses)
+  var lf = $('#login-form'), fails = { n: 0, until: 0 };
+  lf.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearInvalid(lf); hideAlert($('#login-error')); hideAlert($('#login-notice'));
+    var f = lf.elements, email = f['email'].value.trim().toLowerCase(), pw = f['password'].value, bad = false;
+    if (!validEmail(email)) { setInvalid(f['email'], true); bad = true; }
+    if (!pw) { setInvalid(f['password'], true); bad = true; }
+    if (bad) { focusFirstInvalid(lf); return; }
+    if (Date.now() < fails.until) { showAlert($('#login-error'), 'Too many attempts. Please wait a moment, or <a href="#forgot">reset your password</a>.'); return; }
+    var u = email === ADMIN_EMAIL ? { salt: ADMIN_SALT, hash: ADMIN_HASH } : users()[email];
+    var check = u ? hashPw(pw, u.salt).then(function (h) { return h === u.hash; }) : Promise.resolve(false);
+    check.then(function (ok) {
+      if (!ok) {
+        fails.n++; if (fails.n >= 5) { fails.until = Date.now() + 30000; fails.n = 0; }
+        showAlert($('#login-error'), 'Incorrect email or password. <a href="#forgot">Forgot your password?</a>'); return;
+      }
+      fails.n = 0; setSession(email, f['remember'].checked); lf.reset(); updateHeader();
+      var next = nextAfterLogin; nextAfterLogin = 'account'; location.hash = '#' + next;
+    });
+  });
+  var nextAfterLogin = 'account';
+
+  // forgot password: email a 6-digit code, then go to the "enter code" step
+  var ff = $('#forgot-form');
+  ff.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearInvalid(ff);
+    var email = ff.elements['email'].value.trim().toLowerCase();
+    if (!validEmail(email)) { setInvalid(ff.elements['email'], true); ff.elements['email'].focus(); return; }
+    requestReset(email);
+    ff.reset();
+    location.hash = '#reset?email=' + encodeURIComponent(email);
+  });
+  function requestReset(email) {
+    var u = users()[email]; if (!u) return; // same screen is shown either way, so nobody can guess which emails have accounts
+    var n = new Uint32Array(1); (window.crypto || window.msCrypto).getRandomValues(n);
+    var code = String(100000 + (n[0] % 900000));
+    var all = load(K.reset, {});
+    all[email] = { code: code, exp: Date.now() + RESET_MINUTES * 60000, tries: 0 };
+    save(K.reset, all);
+    sendMail(email, u.name, T.reset(u, code));
+  }
+
+  // enter code + choose new password
+  var rf = $('#reset-form'), resetCtx = null, resendTimer = null;
+  function startResendCooldown() {
+    var b = $('#resend-code'), left = 60;
+    clearInterval(resendTimer); b.disabled = true; b.textContent = 'Resend code in ' + left + 's';
+    resendTimer = setInterval(function () {
+      left--; if (left <= 0) { clearInterval(resendTimer); b.disabled = false; b.textContent = 'Resend code'; }
+      else b.textContent = 'Resend code in ' + left + 's';
+    }, 1000);
+  }
+  function renderReset(params) {
+    var email = (params.get('email') || '').trim().toLowerCase();
+    var ok = validEmail(email);
+    resetCtx = ok ? { email: email } : null;
+    $('#reset-invalid').classList.toggle('show', !ok);
+    hideAlert($('#reset-error'));
+    rf.hidden = !ok; $('#reset-sub').hidden = !ok;
+    if (ok) {
+      $('#reset-sub').innerHTML = 'If an account exists for <strong>' + esc(email) + '</strong>, we have emailed a 6-digit code. It expires in ' + RESET_MINUTES + ' minutes.';
+      startResendCooldown();
+      rf.elements['code'].focus();
+    }
+  }
+  $('#r-code').addEventListener('input', function (e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6); });
+  $('#resend-code').addEventListener('click', function () { if (resetCtx) { requestReset(resetCtx.email); startResendCooldown(); toast('A new code has been sent if the account exists.'); } });
+  rf.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!resetCtx) return;
+    clearInvalid(rf); hideAlert($('#reset-error'));
+    var f = rf.elements, pw = f['password'].value, code = f['code'].value.trim(), bad = false;
+    if (!/^\d{6}$/.test(code)) { setInvalid(f['code'], true); bad = true; }
+    if (!validPw(pw)) { setInvalid(f['password'], true); bad = true; }
+    if (!f['confirm'].value || f['confirm'].value !== pw) { setInvalid(f['confirm'], true); bad = true; }
+    if (bad) { focusFirstInvalid(rf); return; }
+    var email = resetCtx.email, recs = load(K.reset, {}), rec = recs[email], all = users(), u = all[email];
+    var generic = 'That code is incorrect or has expired. Check the email, or use "Resend code".';
+    if (!rec || !u || Date.now() > rec.exp) { if (rec) { delete recs[email]; save(K.reset, recs); } showAlert($('#reset-error'), generic); return; }
+    if (rec.code !== code) {
+      rec.tries++;
+      if (rec.tries >= 5) { delete recs[email]; save(K.reset, recs); showAlert($('#reset-error'), 'Too many wrong codes. Please request a new code.'); return; }
+      save(K.reset, recs);
+      showAlert($('#reset-error'), 'That code is not correct. You have ' + (5 - rec.tries) + (5 - rec.tries === 1 ? ' try' : ' tries') + ' left.'); return;
+    }
+    var salt = rand(8);
+    hashPw(pw, salt).then(function (hash) {
+      u.salt = salt; u.hash = hash; all[email] = u; save(K.users, all);
+      delete recs[email]; save(K.reset, recs);
+      clearSession(); updateHeader(); rf.reset(); $('#r-bar').dataset.s = 0; resetCtx = null; clearInterval(resendTimer);
+      sendMail(email, u.name, T.changed(u));
+      loginNotice = 'Your password has been updated. Please sign in with your new password.';
+      location.hash = '#login';
+    });
+  });
+  var loginNotice = '';
+
+  /* =========================================================
+     ACCOUNT PAGE
+     ========================================================= */
+  function renderAccount() {
+    var u = currentUser(); if (!u) return;
+    $('#acct-avatar').textContent = (u.name || 'H').trim().charAt(0).toUpperCase();
+    $('#acct-name').textContent = 'Hi, ' + firstName(u.name) + '!';
+    $('#acct-email').textContent = u.admin ? 'Administrator. You can see every order placed from this browser.' : 'Welcome to your HarvestHub account.';
+    $('#acct-details').innerHTML = '<dt>Name</dt><dd>' + esc(u.name) + '</dd><dt>Email</dt><dd>' + esc(u.email) + '</dd><dt>Phone</dt><dd>' + (esc(u.phone) || 'Not added') + '</dd><dt>Member since</dt><dd>' + new Date(u.created).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }) + '</dd>';
+    var mine = load(K.orders, []).filter(function (o) { return u.admin || o.userEmail === u.email; });
+    var rb = $('#acct-reset-btn'); rb.hidden = !!u.admin; if (rb.previousElementSibling) rb.previousElementSibling.hidden = !!u.admin;
+    $('#acct-orders').innerHTML = mine.length ? mine.map(function (o) {
+      return '<article class="order-card"><header><strong>' + esc(o.id) + '</strong>' + (u.admin ? '<span class="mini-note">' + esc(o.name) + ' &middot; ' + esc(o.phone) + '</span>' : '') + '<span class="badge">Confirmed</span></header>' +
+        '<div class="mini-note">' + new Date(o.ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) + ' &middot; ' + (o.fulfilment === 'pickup' ? 'Pick-up' : 'Delivery') + ' ' + esc(o.when) + '</div>' +
+        '<ul class="sum-lines" style="margin:.6rem 0 .3rem">' + o.items.map(function (i) { return '<li><span>' + i.qty + ' &times; ' + esc(i.name) + '</span><span>' + money(i.price * i.qty) + '</span></li>'; }).join('') + '</ul>' +
+        '<div class="sum-row total" style="font-size:1rem;margin-top:.3rem;padding-top:.5rem"><span>Total</span><span>' + money(o.total) + '</span></div></article>';
+    }).join('') : '<div class="empty-state"><h3>No orders yet</h3><p>When you place an order it will show up here.</p><a class="btn btn-dark" href="#shop">Start shopping</a></div>';
+  }
+  function doSignOut() { clearSession(); updateHeader(); toast('You have been signed out.'); if (location.hash === '#home' || !location.hash) route(); else location.hash = '#home'; }
+  $('#signout-btn').addEventListener('click', doSignOut);
+  $('#header-signout').addEventListener('click', doSignOut);
+  $('#acct-reset-btn').addEventListener('click', function () { var u = currentUser(); if (u) { requestReset(u.email); location.hash = '#reset?email=' + encodeURIComponent(u.email); } });
+
+  /* =========================================================
+     AFTER THE CONTACT / APPLY FORMS (called by the form handler above)
+     ========================================================= */
+  window.HH = {
+    decorate: function (form, p) {
+      var app = (form.dataset.subject || '').indexOf('farmer application') !== -1;
+      var t = T.owner(p, app);
+      p.to_email = OWNER_EMAIL; p.to_name = 'HarvestHub'; p.reply_to = p.from_email;
+      p.eyebrow = t.eyebrow; p.heading = t.heading; p.content = t.inner; p.footer_note = t.note;
+    },
+    afterForm: function (form, p) {
+      if (!p || !validEmail(p.from_email || '')) return;
+      if ((form.dataset.subject || '').indexOf('farmer application') !== -1) sendMail(p.from_email, p.from_name, T.application(p.from_name));
+      else sendMail(p.from_email, p.from_name, T.contact(p.from_name, p.topic, p.message));
+    }
+  };
+
+  /* =========================================================
+     ROUTER
+     ========================================================= */
+  var titles = { home: 'Home', shop: 'Shop', about: 'About', sell: 'Sell', contact: 'Contact', login: 'Sign in', signup: 'Create account', forgot: 'Reset password', reset: 'New password', account: 'My account', cart: 'Cart', checkout: 'Checkout', confirmed: 'Order confirmed' };
+  var pages = $$('.page'), links = $$('.main-nav a');
+
+  function show(name, params) {
+    pages.forEach(function (p) { p.hidden = p.id !== 'page-' + name; });
+    links.forEach(function (a) { if (a.getAttribute('href') === '#' + name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    document.title = (name === 'home' ? 'Fresh from local farms' : titles[name]) + ' | HarvestHub';
+    if (name === 'cart') renderCart();
+    if (name === 'checkout') renderCheckout();
+    if (name === 'confirmed') renderConfirmed();
+    if (name === 'reset') renderReset(params);
+    if (name === 'login') {
+      if (currentUser()) { location.replace('#account'); return; }
+      if (loginNotice) { showAlert($('#login-notice'), esc(loginNotice)); loginNotice = ''; } else hideAlert($('#login-notice'));
+      hideAlert($('#login-error'));
+    }
+    if ((name === 'signup' || name === 'forgot') && currentUser() && name === 'signup') { location.replace('#account'); return; }
+    if (name === 'account') {
+      if (!currentUser()) { nextAfterLogin = 'account'; location.replace('#login'); return; }
+      renderAccount();
+    }
+  }
+
+  function route() {
+    var raw = location.hash.slice(1), q = raw.indexOf('?');
+    var id = decodeURIComponent(q < 0 ? raw : raw.slice(0, q)) || 'home';
+    var params = new URLSearchParams(q < 0 ? '' : raw.slice(q + 1));
+    if (titles[id]) { show(id, params); window.scrollTo(0, 0); return; }
+    var el = document.getElementById(id);
+    if (!el) return;
+    var page = el.closest('.page');
+    if (page) { show(page.id.replace('page-', ''), params); el.scrollIntoView(); }
+  }
+
+  window.addEventListener('hashchange', route);
+  window.addEventListener('storage', updateHeader);
+  updateHeader();
+  route();
+})();
+
+  </script>
+</body>
+</html>
