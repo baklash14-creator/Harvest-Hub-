@@ -319,7 +319,6 @@ a { color: var(--green-dark); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  * { transition: none !important; }
 }
 
 .page[hidden]{display:none}
@@ -910,7 +909,7 @@ h1, h2, h3 { letter-spacing: -0.01em; }
         <div class="image-frame"><img src="images/pages/farmhouse.jpg" alt="Illustration of a farm house with trees and fields" width="400" height="300" onerror="this.onerror=null;this.src=this.src.replace(/\.jpg$/,'.svg')"></div>
         <div>
           <h2 id="story-title">Our story</h2>
-          <p>HarvestHub was started in 2010 by two brothers.</p>
+          <p>HarvestHub was started in 2010 by Abu bakarr kamara.</p>
           <p>We built one place where you can order from many farms at once. Then pick up at the weekly market, or get it delivered within a short time.</p>
           <a class="btn btn-dark" href="#farmers">MEET OUR FARMERS</a>
         </div>
@@ -1034,7 +1033,7 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 
         <ul class="contact-list">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="48" height="48"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><div><strong>Email</strong><a href="mailto:info@harvesthub.example">info@harvesthub.example</a></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="48" height="48"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><div><strong>Phone</strong><a href="tel:+23200000000">+232 00 000 000</a></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="48" height="48"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><div><strong>Phone</strong><a href="tel:+23200000000">+232 080 121 666</a></div></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="48" height="48"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div><strong>Location</strong>Hastings, Sierra Leone</div></li>
         </ul>
       </div>
@@ -2046,6 +2045,125 @@ var OWNER_EMAIL = FALLBACK_EMAIL; // where website messages and applications are
   route();
 })();
 
+  </script>
+
+  <script>
+/* HarvestHub - motion helpers (progressive: the site works the same without this script)
+   1. split the hero title into words for the rise-in
+   2. reveal things as they scroll into view
+   3. header shadow + shrink on scroll
+   4. add-to-cart: photo flies to the basket, count bumps
+*/
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var root = document.documentElement;
+
+  /* 1. hero words */
+  var h1 = document.getElementById('hero-title');
+  if (h1 && !h1.querySelector('.w')) {
+    var words = h1.textContent.trim().split(/\s+/);
+    h1.setAttribute('aria-label', words.join(' '));
+    h1.innerHTML = words.map(function (w, i) {
+      return '<span class="w" aria-hidden="true"><span style="--i:' + i + '">' + w + '</span></span>';
+    }).join(' ');
+  }
+
+  /* 2. scroll reveals */
+  var targets = [
+    '.info-card', '.category-grid > li', '.feature-card', '.cta-band', '.section-more',
+    '.section-title', '.image-frame', '.owner-card', '.value-card', '.farmer-card',
+    '.banner', '.benefit-list li', '.steps li', '.contact-list li'
+  ].join(',');
+  var io = null;
+
+  if ('IntersectionObserver' in window) {
+    root.classList.add('js-motion');
+    document.querySelectorAll(targets).forEach(function (el) {
+      var sibs = el.parentNode ? Array.prototype.indexOf.call(el.parentNode.children, el) : 0;
+      el.style.setProperty('--i', Math.min(Math.max(sibs, 0), 5));
+      el.setAttribute('data-reveal', '');
+    });
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+    // (re)arm the page that is showing, so it animates again each time you visit it
+    var arm = function () {
+      var page = document.querySelector('.page:not([hidden])');
+      if (!page) return;
+      page.querySelectorAll('[data-reveal]').forEach(function (el) {
+        io.unobserve(el);
+        el.classList.remove('in');
+        void el.offsetWidth;
+        io.observe(el);
+      });
+    };
+    arm();
+    window.addEventListener('hashchange', function () { requestAnimationFrame(arm); });
+  }
+
+  /* 3. header */
+  var header = document.querySelector('.site-header');
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      header.classList.toggle('is-scrolled', window.scrollY > 12);
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* 4. add to cart */
+  var flying = 0, lastCount = 0;
+  var countEl = document.getElementById('cart-count');
+  var cartLink = document.getElementById('cart-link');
+
+  function bump() {
+    [countEl, cartLink].forEach(function (el) {
+      el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+    });
+  }
+  if (countEl) {
+    lastCount = parseInt(countEl.textContent, 10) || 0;
+    new MutationObserver(function () {
+      var n = parseInt(countEl.textContent, 10) || 0;
+      var up = n > lastCount; lastCount = n;
+      if (!up || reduce.matches) return;
+      setTimeout(bump, flying ? 620 : 0);
+    }).observe(countEl, { childList: true, characterData: true, subtree: true });
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('button[aria-label^="Add "]');
+    if (!b || reduce.matches) return;
+    b.classList.add('is-added');
+    setTimeout(function () { b.classList.remove('is-added'); }, 1300);
+
+    var card = b.closest('.product-card, .feature-card');
+    var img = card && card.querySelector('img');
+    if (!img || !cartLink || !img.animate) return;
+
+    var from = img.getBoundingClientRect(), to = cartLink.getBoundingClientRect();
+    var size = 64;
+    var sx = from.left + from.width / 2 - size / 2, sy = from.top + from.height / 2 - size / 2;
+    var dx = to.left + to.width / 2 - size / 2 - sx, dy = to.top + to.height / 2 - size / 2 - sy;
+    var puck = document.createElement('div');
+    puck.className = 'hh-fly';
+    puck.style.cssText = 'width:' + size + 'px;height:' + size + 'px;left:' + sx + 'px;top:' + sy + 'px;background-image:url("' + (img.currentSrc || img.src) + '")';
+    document.body.appendChild(puck);
+    flying++;
+    var anim = puck.animate([
+      { transform: 'translate(0,0) scale(1.15)', opacity: 1 },
+      { transform: 'translate(' + dx * 0.55 + 'px,' + (dy * 0.55 - 70) + 'px) scale(.8)', opacity: 1, offset: 0.55 },
+      { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.22)', opacity: .35 }
+    ], { duration: 700, easing: 'cubic-bezier(.5,.05,.6,.95)', fill: 'forwards' });
+    anim.onfinish = anim.oncancel = function () { puck.remove(); flying = Math.max(0, flying - 1); };
+  });
+})();
   </script>
 </body>
 </html>

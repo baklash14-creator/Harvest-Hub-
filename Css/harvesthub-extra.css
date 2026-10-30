@@ -180,10 +180,6 @@ html { scrollbar-color: #2e7d32 #eef7ee; scrollbar-width: thin; }
   .section-title { font-size: 1.5rem; }
 }
 
-/* ---------- accessibility: respect reduced motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-}
 
 /* ---------- print ---------- */
 @media print {
@@ -293,3 +289,186 @@ a { text-underline-offset: 3px; }
 .product-card img, .feature-card img { object-fit: contain; padding: .5rem; background: linear-gradient(160deg, #eaf6ea, #fff6df); }
 .product-card img { aspect-ratio: 1 / 1; }
 .product-info h3 { min-height: 2.6em; display: flex; align-items: flex-end; }
+
+
+/* ---------- real photos ---------- */
+.product-card img, .feature-card img, .category-card img { object-fit: cover; padding: 0; background: #eef7ee; }
+.product-card img { aspect-ratio: 4 / 3; }
+.feature-card img { height: 200px; }
+.hero-art { object-fit: cover; aspect-ratio: 4 / 3; width: 100%; }
+.image-frame img { object-fit: cover; }
+.cart-item img { object-fit: cover; padding: 0; }
+
+
+/* =========================================================
+   MOTION LAYER (v3)
+   Idea: things on a farm stand grow in, they don't slide around.
+   - one orchestrated moment: the hero (words rise, photo settles)
+   - scroll reveals, staggered inside grids (needs the small script at the bottom of index.html)
+   - motion that answers a click: fly-to-cart, cart bump, toast spring, modal, form feedback
+   - reduced-motion users keep soft fades, but no movement
+   ========================================================= */
+:root {
+  --spring: cubic-bezier(.34, 1.45, .64, 1);
+  --rise: 22px;          /* how far things travel while revealing */
+  --word-y: 110%;        /* hero word travel */
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --rise: 0px; --word-y: 0%; }
+}
+
+@keyframes hh-fade   { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hh-rise   { from { opacity: 0; transform: translateY(var(--rise)); } to { opacity: 1; transform: none; } }
+@keyframes hh-word   { from { opacity: 0; transform: translateY(var(--word-y)); } to { opacity: 1; transform: none; } }
+@keyframes hh-draw   { from { transform: translateX(-50%) scaleX(0); } to { transform: translateX(-50%) scaleX(1); } }
+@keyframes hh-scale-in { from { opacity: 0; transform: translateY(calc(var(--rise) * .6)) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes hh-hero-in {
+  from { opacity: 0; transform: translateY(calc(var(--rise) * 1.6)) rotate(5deg) scale(.94); }
+  to   { opacity: 1; transform: rotate(1.5deg); }
+}
+@keyframes hh-shake  { 0%, 100% { transform: none; } 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+@keyframes hh-bump   { 0% { transform: scale(1); } 40% { transform: scale(1.55); } 100% { transform: scale(1); } }
+@keyframes hh-ring   { from { box-shadow: 0 0 0 0 rgba(46,125,50,.45); } to { box-shadow: 0 0 0 26px rgba(46,125,50,0); } }
+@keyframes hh-tick   { to { stroke-dashoffset: 0; } }
+@keyframes hh-drop   { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+@keyframes hh-added  { 0% { transform: scale(1); } 35% { transform: scale(1.06); } 100% { transform: scale(1); } }
+
+/* ---------- page change: a quick fade only; the content inside does the moving ---------- */
+.page:not([hidden]) > section,
+.page:not([hidden]) > .page-head,
+.page:not([hidden]) > .container,
+.page:not([hidden]) > section:nth-of-type(2),
+.page:not([hidden]) > section:nth-of-type(3) {
+  animation: hh-fade .4s ease both;
+  animation-delay: 0s;
+}
+.page-head h1 { animation: hh-rise .7s var(--ease) both; }
+.page-head p  { animation: hh-rise .7s var(--ease) .1s both; }
+.page-head::after { animation: hh-fade 1.2s ease .2s both; }
+
+/* ---------- hero: the one big moment ---------- */
+.hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .04em .16em; margin: 0 -.04em -.16em; }
+.hero h1 .w > span { display: inline-block; animation: hh-word .85s var(--ease) both; animation-delay: calc(.12s + var(--i, 0) * .075s); }
+.hero .eyebrow     { animation: hh-rise .7s var(--ease) both; }
+.hero-inner p      { animation: hh-rise .8s var(--ease) .55s both; }
+.hero .btn-row .btn { animation: hh-rise .8s var(--ease) backwards; }   /* backwards: hover/press transforms still work afterwards */
+.hero .btn-row .btn:nth-child(1) { animation-delay: .7s; }
+.hero .btn-row .btn:nth-child(2) { animation-delay: .8s; }
+/* photo settles in, then drifts very gently (slower + smaller than before) */
+.hero-art { animation: hh-hero-in 1.1s var(--ease) .25s both, hh-float 9s ease-in-out 1.5s infinite; }
+@keyframes hh-float { 0%, 100% { transform: rotate(1.5deg) translateY(0); } 50% { transform: rotate(1.5deg) translateY(-7px); } }
+@media (prefers-reduced-motion: reduce) { .hero-art { animation: hh-fade .8s ease .2s both; } }
+/* soft glow blobs breathe in the background */
+@keyframes hh-glow { 0%, 100% { transform: scale(1); opacity: .9; } 50% { transform: scale(1.12); opacity: 1; } }
+.hero::before { animation: hh-glow 11s ease-in-out infinite; }
+.hero::after  { animation: hh-glow 14s ease-in-out -4s infinite; }
+@media (prefers-reduced-motion: reduce) { .hero::before, .hero::after { animation: none; } }
+
+/* ---------- header ---------- */
+.header-inner { transition: padding .3s var(--ease); }
+.site-header { transition: box-shadow .3s, background .3s; }
+.site-header.is-scrolled { box-shadow: 0 10px 34px rgba(27, 94, 32, .14); background: rgba(255, 255, 255, .97); }
+.site-header.is-scrolled .header-inner { padding-top: .3rem; padding-bottom: .3rem; }
+.logo img { transition: transform .5s var(--ease), width .3s var(--ease), height .3s var(--ease); }
+.site-header.is-scrolled .logo img { width: 38px; height: 38px; }
+.cart-count.bump { animation: hh-bump .45s var(--spring); }
+.icon-btn.bump { animation: hh-added .45s var(--spring); }
+
+/* mobile menu slides open instead of snapping */
+@media (max-width: 1023px) {
+  .main-nav.open { animation: hh-drop .3s var(--ease) both; }
+  .main-nav.open li { animation: hh-rise .4s var(--ease) both; --rise: 10px; }
+  .main-nav.open li:nth-child(2) { animation-delay: .04s; }
+  .main-nav.open li:nth-child(3) { animation-delay: .08s; }
+  .main-nav.open li:nth-child(4) { animation-delay: .12s; }
+  .main-nav.open li:nth-child(5) { animation-delay: .16s; }
+}
+
+/* ---------- scroll reveals (classes are added by the script) ----------
+   Uses animation with a backwards fill, so after it ends the element goes back to its normal
+   styles and your hover transitions keep working at their normal speed. */
+.js-motion [data-reveal] { opacity: 0; }
+.js-motion [data-reveal].in {
+  opacity: 1;
+  animation: hh-rise .75s var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+.js-motion .cta-band[data-reveal].in,
+.js-motion .banner[data-reveal].in,
+.js-motion .owner-card[data-reveal].in { animation-name: hh-scale-in; }
+/* the little green/honey bar under each title draws itself */
+.js-motion .section-title[data-reveal]::after { transform: translateX(-50%) scaleX(0); }
+.js-motion .section-title[data-reveal].in::after { transform: translateX(-50%) scaleX(1); animation: hh-draw .8s var(--ease) .25s backwards; }
+@media (prefers-reduced-motion: reduce) { .js-motion .section-title[data-reveal].in::after { animation: none; } }
+
+/* ---------- shop: cards pop in when the page opens and every time a filter reveals them ---------- */
+.product-grid > li { animation: hh-scale-in .55s var(--ease) both; }
+.product-grid > li:nth-child(4n+2) { animation-delay: .05s; }
+.product-grid > li:nth-child(4n+3) { animation-delay: .10s; }
+.product-grid > li:nth-child(4n+4) { animation-delay: .15s; }
+.no-results[style*="block"] { animation: hh-rise .5s var(--ease) both; }
+#shop-heading, .result-count { transition: opacity .2s; }
+
+/* ---------- richer hovers (user-triggered, so fine to be playful) ---------- */
+.product-card, .feature-card { transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .25s; }
+.product-card .btn, .feature-card .btn { transition: background .2s, color .2s, transform .2s, box-shadow .2s; }
+.category-card { transition: transform .35s var(--spring), box-shadow .3s; }
+.category-card span { transition: color .2s, letter-spacing .3s var(--ease); }
+.category-card:hover span { color: var(--green-dark); letter-spacing: .01em; }
+.info-card svg { transition: transform .4s var(--spring), background .2s; }
+.info-card:hover svg { transform: rotate(-8deg) scale(1.12); background: #d9eedb; }
+.value-card svg, .benefit-list svg { transition: transform .4s var(--spring); }
+.value-card:hover svg, .benefit-list li:hover svg { transform: scale(1.15) rotate(-6deg); }
+.farmer-card .avatar { transition: transform .4s var(--spring); }
+.farmer-card:hover .avatar { transform: scale(1.1) rotate(-6deg); }
+.steps li::before { transition: color .2s; }
+.steps li:hover::before { color: var(--green-dark); }
+
+/* ---------- add to cart: the button confirms, the photo flies to the basket ---------- */
+button.btn.is-added { background: var(--honey); border-color: var(--honey); color: #3a2a00; animation: hh-added .45s var(--spring); }
+.hh-fly { position: fixed; z-index: 700; pointer-events: none; border-radius: 50%; background-size: cover; background-position: center; background-color: #a5d6a7; border: 3px solid #fff; box-shadow: 0 10px 24px rgba(27,94,32,.35); will-change: transform; }
+
+/* ---------- toast + modal ---------- */
+.toast { transition: transform .55s var(--spring), opacity .3s; opacity: 0; }
+.toast.show { opacity: 1; }
+.modal:not([hidden]) { animation: hh-fade .25s ease both; }
+.modal:not([hidden]) .mail-app { animation: hh-scale-in .4s var(--spring) both; }
+.mail-list button { transition: background .15s, padding-left .2s var(--ease); }
+.mail-list button:hover { padding-left: 1.25rem; }
+
+/* ---------- forms: errors and messages arrive, they don't just appear ---------- */
+.form-group.invalid input, .form-group.invalid textarea, .form-group.invalid select { animation: hh-shake .4s ease; }
+.form-group.invalid .error, .check-error { animation: hh-drop .3s var(--ease) both; }
+.alert.show, .form-success, .form-error { animation: hh-drop .35s var(--ease) both; }
+.btn:disabled { transition: opacity .2s; }
+#delivery-fields:not([hidden]) { animation: hh-drop .4s var(--ease) both; }
+.radio-card { transition: border-color .2s, background .2s, transform .15s, box-shadow .25s; }
+.pw-toggle { transition: background .15s, color .15s; }
+.link-btn { transition: opacity .15s; }
+.link-btn:hover { opacity: .7; }
+
+/* ---------- cart + order confirmed ---------- */
+.empty-state svg { animation: hh-rise .7s var(--ease) both; }
+.sum-row.total span:last-child { display: inline-block; }
+.auth-card { animation: hh-scale-in .6s var(--ease) both; }
+.big-check { animation: hh-pop .6s var(--spring), hh-ring 1.1s ease-out .25s both; }
+.big-check svg path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: hh-tick .6s var(--ease) .45s forwards; }
+@media (prefers-reduced-motion: reduce) { .big-check svg path { stroke-dashoffset: 0; animation: none; } }
+
+/* ---------- footer ---------- */
+.site-footer::before { background-size: 200% 100%; animation: hh-slide 8s linear infinite; }
+@keyframes hh-slide { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .site-footer::before { animation: none; } }
+
+/* ---------- reduced motion: soft fades only, no travelling, no shine ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn-dark::after { display: none; }
+  .product-card:hover img, .category-card:hover img, .feature-card:hover img { transform: none; }
+  .product-card:hover, .feature-card:hover, .category-card:hover, .info-card:hover,
+  .value-card:hover, .farmer-card:hover, .benefit-list li:hover, .steps li:hover { transform: none; }
+  .form-group.invalid input, .form-group.invalid textarea, .form-group.invalid select { animation: none; }
+  .cart-count.bump, .icon-btn.bump, button.btn.is-added { animation: none; }
+  .toast { transition: opacity .3s; transform: translate(-50%, 0); pointer-events: none; }
+  .toast.show { pointer-events: auto; }
+}
